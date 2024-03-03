@@ -9,12 +9,12 @@ public class DetactionZone : MonoBehaviour
     public UnityEvent noCollidersRemain;
     public UnityEvent EnterEvent;
     public UnityEvent InStayEvent;
-    public UnityEvent StayEvent;
+    public UnityEvent ReactEvent;
     public List<Collider2D> collider2Ds = new List<Collider2D>();
     public bool InTriggerStay = false;
     public bool isTriggerEnter = false;
     public bool isTriggerExit = false;
-    public bool forStay = false;
+    public bool InReact = false;
     Collider2D col;
     // Start is called before the first frame update
     private void Awake()
@@ -53,9 +53,19 @@ public class DetactionZone : MonoBehaviour
                 InStayEvent?.Invoke();
             }
         }
-        if (forStay)//用于转向以外，在目标待在区域内时每一帧不断调用的事件，可能暂时用不到
+        if (InReact)//用于触发互动事件
         {
-            StayEvent?.Invoke();
+            //if(Input.GetKeyDown(KeyCode.UpArrow))
+            if (Input.GetKey(KeyCode.Q))
+            {
+                ReactEvent?.Invoke();
+                InReact=false;
+            }
         }
     }
+    public void ReactTest()
+    {
+        print("ReactTest"); 
+    }
+    public void ReactOn()   { InReact = true; }
 }

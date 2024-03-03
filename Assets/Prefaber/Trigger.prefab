@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7822246253541770723}
   - component: {fileID: 6639015318755928482}
   - component: {fileID: 8781426349260666296}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,8 +72,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 769989615
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -171,4 +171,5 @@ MonoBehaviour:
   collider2Ds: []
   InTriggerStay: 0
   isTriggerEnter: 1
+  isTriggerExit: 0
   forStay: 0

@@ -23,7 +23,7 @@ public class TouchingDetactor : MonoBehaviour
     //RaycastHit2D[] RayTestHits = new RaycastHit2D[5];//²âÊÔÓÃ
 
     private Animator animator;
-    //[SerializeField]
+    [SerializeField]
     private bool _isGrounded;
     public bool isGrounded
     {
@@ -34,10 +34,10 @@ public class TouchingDetactor : MonoBehaviour
         private set
         {
             _isGrounded = value;
-            animator.SetBool(AnimationString.isGround, value);
+            //animator.SetBool(AnimationString.isGround, value);
         }
     }
-    //[SerializeField]
+    [SerializeField]
     private bool _isWall;
     private Vector2 WallCheckDirection => gameObject.transform.localScale.x > 0 ? Vector2.right : Vector2.left;
     public bool isWall
@@ -49,7 +49,7 @@ public class TouchingDetactor : MonoBehaviour
         private set
         {
             _isWall = value;
-            animator.SetBool(AnimationString.isWall, value);
+            //animator.SetBool(AnimationString.isWall, value);
         }
     }
     //private bool _isceiling;
