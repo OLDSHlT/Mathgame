@@ -8,6 +8,7 @@ public class PlayerMovementController : MonoBehaviour
     // Start is called before the first frame update
     public float movementSpeed = 8.0f;
     public float sprintCD = 1.5f;
+    public float sprintDuration = 0.1f;
     Vector2 movement = new Vector2();
     private TouchingDetactor touchingDetactor;
 
@@ -15,6 +16,7 @@ public class PlayerMovementController : MonoBehaviour
     private string animationState = "AnimationState";
     Rigidbody2D rb2d;
     private bool isSprinting = false;
+    private bool isSprintCD = false;
 
     enum CharStates
     {
@@ -43,6 +45,16 @@ public class PlayerMovementController : MonoBehaviour
     }
     private void MovePlayer()
     {
+        float actualSpeed = this.movementSpeed;
+        if (isSprinting)
+        {
+            actualSpeed = actualSpeed * 5;
+        }
+        else
+        {
+            actualSpeed = this.movementSpeed;
+        }
+
         movement.x = Input.GetAxisRaw("Horizontal");
         //movement.y = Input.GetAxisRaw("Vertical");
         movement.Normalize();
@@ -51,7 +63,7 @@ public class PlayerMovementController : MonoBehaviour
             rb2d.AddForce(Vector2.up * 8f, ForceMode2D.Impulse);
         }
         TurnCheck();
-        rb2d.velocity = new Vector2(movement.x * movementSpeed, rb2d.velocity.y);
+        rb2d.velocity = new Vector2(movement.x * actualSpeed, rb2d.velocity.y);
     }
     private void TurnCheck()
     {
@@ -82,14 +94,26 @@ public class PlayerMovementController : MonoBehaviour
         {
             animator.SetInteger(animationState, (int)CharStates.idle);
         }
+        if (Input.GetKey(KeyCode.LeftShift) && !isSprintCD)
+        {
+            this.isSprinting = true;
+            StartCoroutine(SprintCounter());
+        }
     }
     //协程用于计时
-    private IEnumerable sprintCounter()
+    private IEnumerator SprintCounter()
     {
         if (isSprinting)
         {
-            yield return new WaitForSeconds(this.sprintCD);
+            yield return new WaitForSeconds(this.sprintDuration);
             this.isSprinting = false;
+            StartCoroutine(SprintCoolCounter());
         }
+    }
+    private IEnumerator SprintCoolCounter()
+    {
+        this.isSprintCD = true;
+        yield return new WaitForSeconds(this.sprintCD);
+        this.isSprintCD = false;
     }
 }
