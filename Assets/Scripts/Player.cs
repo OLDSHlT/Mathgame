@@ -77,7 +77,7 @@ public class Player : MonoBehaviour
         gameObject.transform.localScale = new Vector2(gameObject.transform.localScale.x * -1, gameObject.transform.localScale.y);
     }
 
-    public float JumpSpeed = 2.5f;
+    public float JumpSpeed = 5f;
     bool isJumping=false;
     float JumpTimer = 0f;
     void Jump()
@@ -107,7 +107,7 @@ public class Player : MonoBehaviour
             {
                 rd.velocity = new Vector2(transform.localScale.x * -1*WallJumpSpeed.x, WallJumpSpeed.y);
                 LockVelocity = true;
-                Invoke("LaterWallJump", 0.4f);
+                Invoke("LaterWallJump", 0.2f);
             }
         }
     }

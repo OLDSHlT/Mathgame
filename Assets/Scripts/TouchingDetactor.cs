@@ -12,7 +12,7 @@ public class TouchingDetactor : MonoBehaviour
     //private float canClimbCheckDistance = 0.7f;
 
 
-    CapsuleCollider2D touchingCollider;
+    BoxCollider2D touchingCollider;
     //public Transform canEdgeClimbposition;
     LayerMask MaskGround;
 
@@ -83,7 +83,7 @@ public class TouchingDetactor : MonoBehaviour
 
     private void Awake()
     {
-        touchingCollider = GetComponent<CapsuleCollider2D>();
+        touchingCollider = GetComponent<BoxCollider2D>();
         animator = GetComponent<Animator>();
         //MaskGround = 1 << 7;
         //MaskGround = LayerMask.GetMask("Ground","UI");
