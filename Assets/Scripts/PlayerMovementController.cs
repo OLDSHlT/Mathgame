@@ -7,12 +7,14 @@ public class PlayerMovementController : MonoBehaviour
 {
     // Start is called before the first frame update
     public float movementSpeed = 8.0f;
+    public float sprintCD = 1.5f;
     Vector2 movement = new Vector2();
     private TouchingDetactor touchingDetactor;
 
     Animator animator;
-    string animationState = "AnimationState";
+    private string animationState = "AnimationState";
     Rigidbody2D rb2d;
+    private bool isSprinting = false;
 
     enum CharStates
     {
@@ -79,6 +81,15 @@ public class PlayerMovementController : MonoBehaviour
         else
         {
             animator.SetInteger(animationState, (int)CharStates.idle);
+        }
+    }
+    //协程用于计时
+    private IEnumerable sprintCounter()
+    {
+        if (isSprinting)
+        {
+            yield return new WaitForSeconds(this.sprintCD);
+            this.isSprinting = false;
         }
     }
 }
