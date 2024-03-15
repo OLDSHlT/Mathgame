@@ -9,24 +9,23 @@ public class PlayerMovementController : MonoBehaviour
     public float movementSpeed = 8.0f;
     public float sprintCD = 1.5f;
     public float sprintDuration = 0.1f;
+    public float attackDuration = 1f;
+    public float attackCD = 0.5f;
+    public float recoverDuration = 1f;
+    public float recoverCD = 0.5f;
     Vector2 movement = new Vector2();
     private TouchingDetactor touchingDetactor;
 
     Animator animator;
-    private string animationState = "AnimationState";
     Rigidbody2D rb2d;
     private bool isSprinting = false;
     private bool isSprintCD = false;
+    private bool isRunning = false;
+    private bool isJumping = false;
+    private bool isStickOnWall = false;
+    private bool isRecovering = false;
+    private bool isRecoverCD = false;
 
-    enum CharStates
-    {
-        idle = 0,
-        running = 1,
-        attack1 = 2,
-        attack2 = 3,
-        recover = 4,
-        jumping = 5,
-    }
     void Start()
     {
         this.animator = GetComponent<Animator>();
@@ -45,6 +44,11 @@ public class PlayerMovementController : MonoBehaviour
     }
     private void MovePlayer()
     {
+        if (Input.GetKey(KeyCode.LeftShift) && !isSprintCD)
+        {
+            this.isSprinting = true;
+            StartCoroutine(SprintCounter());
+        }
         float actualSpeed = this.movementSpeed;
         if (isSprinting)
         {
@@ -54,14 +58,13 @@ public class PlayerMovementController : MonoBehaviour
         {
             actualSpeed = this.movementSpeed;
         }
-
         movement.x = Input.GetAxisRaw("Horizontal");
-        //movement.y = Input.GetAxisRaw("Vertical");
         movement.Normalize();
-        //overturn the spirit
+        //jump
         if (Input.GetKey(KeyCode.Space) && touchingDetactor.isGrounded){
             rb2d.AddForce(Vector2.up * 8f, ForceMode2D.Impulse);
         }
+        //overturn the spirit
         TurnCheck();
         rb2d.velocity = new Vector2(movement.x * actualSpeed, rb2d.velocity.y);
     }
@@ -80,25 +83,32 @@ public class PlayerMovementController : MonoBehaviour
     {
         if(movement.x != 0 && touchingDetactor.isGrounded)
         {
-            animator.SetInteger(animationState, (int)CharStates.running);
-        }
-        else if (Input.GetKey(KeyCode.Space) || !touchingDetactor.isGrounded)
-        {
-            animator.SetInteger(animationState, (int)CharStates.jumping);
-        }
-        else if (Input.GetKey(KeyCode.X))
-        {
-            animator.SetInteger(animationState, (int)CharStates.attack1);
+            isRunning = true;
         }
         else
         {
-            animator.SetInteger(animationState, (int)CharStates.idle);
+            isRunning = false;
         }
-        if (Input.GetKey(KeyCode.LeftShift) && !isSprintCD)
+        if (!touchingDetactor.isGrounded)
         {
-            this.isSprinting = true;
-            StartCoroutine(SprintCounter());
+            this.isJumping = true;
         }
+        else
+        {
+            this.isJumping = false;
+        }
+        if(Input.GetKey(KeyCode.Q) && !this.isRecoverCD && !this.isRunning && !this.isRecovering)
+        {
+            this.isRecovering = true;
+            StartCoroutine(RecoverCounter());
+        }
+        
+        animator.SetBool("isSprinting", isSprinting);
+        animator.SetBool("isRunning", isRunning);
+        animator.SetBool("isJumping", isJumping);
+        animator.SetBool("isStickOnWall", isStickOnWall);
+        animator.SetBool("isRecovering", isRecovering);
+
     }
     //协程用于计时
     private IEnumerator SprintCounter()
@@ -107,13 +117,20 @@ public class PlayerMovementController : MonoBehaviour
         {
             yield return new WaitForSeconds(this.sprintDuration);
             this.isSprinting = false;
-            StartCoroutine(SprintCoolCounter());
+            this.isSprintCD = true;
+            yield return new WaitForSeconds(this.sprintCD);
+            this.isSprintCD = false;
         }
     }
-    private IEnumerator SprintCoolCounter()
+    private IEnumerator RecoverCounter()
     {
-        this.isSprintCD = true;
-        yield return new WaitForSeconds(this.sprintCD);
-        this.isSprintCD = false;
+        if (isRecovering)
+        {
+            yield return new WaitForSeconds(this.recoverDuration);
+            this.isRecovering = false;
+            this.isRecoverCD = true;
+            yield return new WaitForSeconds(this.recoverCD);
+            this.isRecoverCD = false;
+        }
     }
 }

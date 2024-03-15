@@ -968,6 +968,56 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1012501622 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 535460146059056625, guid: c17cf6a186cb7404b8e33ec2236e2fbc, type: 3}
+  m_PrefabInstance: {fileID: 4127267712542524448}
+  m_PrefabAsset: {fileID: 0}
+--- !u!61 &1012501631
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1012501622}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.019948289, y: -0.019819118}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.5, y: 0.37}
+    newSize: {x: 1, y: 2}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.20932195, y: 0.33036178}
+  m_EdgeRadius: 0
 --- !u!1 &1019010134
 GameObject:
   m_ObjectHideFlags: 0
@@ -1385,7 +1435,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.24185938, y: -0.24185872}
+  m_Offset: {x: -0.24185944, y: -0.20757335}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -1396,7 +1446,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.434875, y: 3.0573254}
+  m_Size: {x: 2.434875, y: 2.9887547}
   m_EdgeRadius: 0
 --- !u!114 &1320639013
 MonoBehaviour:
@@ -1410,7 +1460,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c791d4b8ce1839a47bb6ffb9c896b982, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 3
+  movementSpeed: 5
+  sprintCD: 1.5
+  sprintDuration: 0.1
+  attackDuration: 1
+  attackCD: 0.5
+  recoverDuration: 1
+  recoverCD: 0.5
 --- !u!1 &1325325257
 GameObject:
   m_ObjectHideFlags: 0
@@ -2614,7 +2670,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 535460146059056625, guid: c17cf6a186cb7404b8e33ec2236e2fbc, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1012501631}
   m_SourcePrefab: {fileID: 100100000, guid: c17cf6a186cb7404b8e33ec2236e2fbc, type: 3}
 --- !u!1001 &5483952875693727580
 PrefabInstance:
