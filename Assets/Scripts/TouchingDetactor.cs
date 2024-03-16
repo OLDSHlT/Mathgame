@@ -95,7 +95,15 @@ public class TouchingDetactor : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    //void FixedUpdate()
+    //{
+    //    isGrounded = touchingCollider.Cast(Vector2.down, castFilter, groundHits, groundDistance) > 0;
+    //    isWall = touchingCollider.Cast(WallCheckDirection, castFilter, wallHits, wallDistance) > 0;
+    //    //isWall = Physics2D.Raycast(transform.position, WallCheckDirection, wallDistance, MaskGround);
+    //    //isCeiling = touchingCollider.Cast(Vector2.up, castFilter, ceilingHits, ceilingDistance) > 0;
+    //    //canEdgeClimb = Physics2D.Raycast(canEdgeClimbposition.position, WallCheckDirection, canClimbCheckDistance,MaskGround);
+    //}
+    void Update()
     {
         isGrounded = touchingCollider.Cast(Vector2.down, castFilter, groundHits, groundDistance) > 0;
         isWall = touchingCollider.Cast(WallCheckDirection, castFilter, wallHits, wallDistance) > 0;

@@ -52,8 +52,8 @@ public class Player : MonoBehaviour
                 rd.velocity = new Vector2(MoveSpeed * x, rd.velocity.y);
             }//ÐÐ×ßÂß¼­
             Jump();
-            if (touchingDetactor.isWall &&!touchingDetactor.isGrounded)
-                WallJump();
+            //if (touchingDetactor.isWall &&!touchingDetactor.isGrounded)
+                //WallJump();
         }
         Dash();
         DashTimer -=Time.deltaTime;

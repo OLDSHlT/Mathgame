@@ -37,10 +37,11 @@ public class PlayerMovementController : MonoBehaviour
     void Update()
     {
         UpdateState();
+        MovePlayer();
     }
     private void FixedUpdate()
     {
-        MovePlayer();
+        //MovePlayer();
     }
     private void MovePlayer()
     {
@@ -61,8 +62,13 @@ public class PlayerMovementController : MonoBehaviour
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.Normalize();
         //jump
-        if (Input.GetKey(KeyCode.Space) && touchingDetactor.isGrounded){
+        if (Input.GetKeyDown(KeyCode.Space) && touchingDetactor.isGrounded)
+        {
             rb2d.AddForce(Vector2.up * 8f, ForceMode2D.Impulse);
+        }
+        else if (Input.GetKeyDown(KeyCode.Space) && !touchingDetactor.isGrounded && touchingDetactor.isWall)
+        {
+            rb2d.AddForce(Vector2.up * 8f, ForceMode2D.Impulse); 
         }
         //overturn the spirit
         TurnCheck();

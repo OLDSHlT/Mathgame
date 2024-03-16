@@ -1,22 +1,35 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class YangHui : MonoBehaviour
 {
-    public int Line = 3;
-    public GameObject[] PartList;
+    int Line;
+    public YangHuiPart[] PartList;
 
     void Start()
     {
-        //for (int i = 0; i < PartList.Length; i++)
-        //{
-        //    YangHuiPart yangHuiPart;
-        //    yangHuiPart=PartList[i].GetCompont<YangHuiPart>();
-        //    yangHuiPart.Num = YanghuiRes(2, 1);
-        // }
-
+        int add = 0,a=1;
         
+        while (add<PartList.Length)
+        {
+            add += a;
+            Line = a;
+            a++;
+        }
+        //print(Line);
+        System.Random random = new System.Random();
+        Vector2 iRandom2d =new Vector2 (random.Next(1,3), random.Next(1, 3));
+        for (int i = 0; i < PartList.Length; i++)
+        {
+            
+            Vector2 Index2D = IndexChange(i)+iRandom2d;
+            PartList[i].Num = YanghuiRes(Convert.ToInt32(Index2D.x), Convert.ToInt32(Index2D.y));
+            
+        }
+        PartList[0].Num = YanghuiRes(Convert.ToInt32(iRandom2d.x), Convert.ToInt32(iRandom2d.y));
+
 
     }
 
@@ -44,7 +57,7 @@ public class YangHui : MonoBehaviour
                 if (add == OriginIndex)
                 {
                     index2D = new Vector2(i, j);
-                    print(index2D);
+                    //print(index2D);
                     return index2D;
                 }
                 add++;
