@@ -44,4 +44,19 @@ public class MenuEvents : MonoBehaviour
         this.menuCanvas.SetActive(false);
         this.selectGameCanvas.SetActive(true);
     }
+    public void OptionToMenu()
+    {
+        this.menuCanvas.SetActive(true);
+        this.optionCanvas.SetActive(false);
+    }
+    public void ProducerToMenu()
+    {
+        this.menuCanvas.SetActive(true);
+        this.producerCanvas.SetActive(false);
+    }
+    public void SelectToMenu()
+    {
+        this.menuCanvas.SetActive(true);
+        this.selectGameCanvas.SetActive(false);
+    }
 }
