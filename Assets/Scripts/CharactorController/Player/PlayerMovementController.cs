@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Timeline;
 using UnityEngine;
 
 public class PlayerMovementController : MonoBehaviour
@@ -13,11 +14,17 @@ public class PlayerMovementController : MonoBehaviour
     public float attackCD = 0.5f;
     public float recoverDuration = 1f;
     public float recoverCD = 0.5f;
+    public float jumpHeight = 2f;
     Vector2 movement = new Vector2();
     private TouchingDetactor touchingDetactor;
 
     Animator animator;
     Rigidbody2D rb2d;
+    //跳跃时间计时器
+    private float jumpTime = 0f;
+    private bool isJumpTouch = false;
+    private float maxJumpTime = 0.2f;
+    //各种状态的触发器
     private bool isSprinting = false;
     private bool isSprintCD = false;
     private bool isRunning = false;
@@ -45,11 +52,14 @@ public class PlayerMovementController : MonoBehaviour
     }
     private void MovePlayer()
     {
+        //冲刺
         if (Input.GetKey(KeyCode.LeftShift) && !isSprintCD)
         {
             this.isSprinting = true;
             StartCoroutine(SprintCounter());
         }
+        //真正的速度
+        //当冲刺时速度是原速度的五倍
         float actualSpeed = this.movementSpeed;
         if (isSprinting)
         {
@@ -62,17 +72,34 @@ public class PlayerMovementController : MonoBehaviour
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.Normalize();
         //jump
-        if (Input.GetKeyDown(KeyCode.Space) && touchingDetactor.isGrounded)
+        if (Input.GetKey(KeyCode.Space) && !touchingDetactor.isWall)
         {
-            rb2d.AddForce(Vector2.up * 8f, ForceMode2D.Impulse);
+            if (touchingDetactor.isGrounded)
+            {
+                rb2d.AddForce(Vector2.up * 8f, ForceMode2D.Impulse);
+            }
+            //待修改
+            else if(jumpTime < maxJumpTime)
+            {
+                Jump(movement.x * actualSpeed);
+            }
+            if(jumpTime < maxJumpTime)
+            {
+                jumpTime += Time.deltaTime;
+            }
         }
-        else if (Input.GetKeyDown(KeyCode.Space) && !touchingDetactor.isGrounded && touchingDetactor.isWall)
+        //蹬墙跳
+        if (Input.GetKeyDown(KeyCode.Space) && !touchingDetactor.isGrounded && touchingDetactor.isWall)
         {
             rb2d.AddForce(Vector2.up * 8f, ForceMode2D.Impulse); 
         }
         //overturn the spirit
         TurnCheck();
         rb2d.velocity = new Vector2(movement.x * actualSpeed, rb2d.velocity.y);
+    }
+    private void Jump(float movement)
+    {
+        rb2d.velocity = new Vector2(movement, 10f);
     }
     private void TurnCheck()
     {
@@ -102,6 +129,8 @@ public class PlayerMovementController : MonoBehaviour
         else
         {
             this.isJumping = false;
+            //重置跳跃时间
+            jumpTime = 0f;
         }
         if(Input.GetKey(KeyCode.Q) && !this.isRecoverCD && !this.isRunning && !this.isRecovering)
         {
