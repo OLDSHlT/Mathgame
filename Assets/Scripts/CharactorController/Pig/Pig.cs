@@ -11,6 +11,8 @@ public class Pig : MonoBehaviour
     private BoxCollider2D boxCollider2D;
     private Rigidbody2D rb2d;
     private Vector2 movement = new Vector2();
+
+    public int damage = 10;
     // Start is called before the first frame update
     void Start()
     {
@@ -69,5 +71,13 @@ public class Pig : MonoBehaviour
         }
         rb2d.velocity = new Vector2(movement.x * speed, rb2d.velocity.y);
         TurnCheck();
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            //¹¥»÷Íæ¼ÒµÄ´úÂë
+            Debug.Log("attack player");
+        }
     }
 }
