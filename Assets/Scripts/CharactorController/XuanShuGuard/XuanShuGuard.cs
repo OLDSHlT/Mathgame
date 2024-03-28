@@ -9,7 +9,9 @@ public class XuanShuGuard : MonoBehaviour
     public float speed = 2f;
     public float detactDistance = 100f;
     public float attackCD = 1.5f;
+    public int HP = 200;
 
+    private bool isDead = true;
     private AnimatorStateInfo state;
     private bool isAttackCDing = false;
     private bool isAttacking = false;
@@ -43,7 +45,10 @@ public class XuanShuGuard : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Move();
+        if (!this.isDead)
+        {
+            Move();
+        }
         UpdateStatus();
     }
     private void TurnCheck()
@@ -100,6 +105,7 @@ public class XuanShuGuard : MonoBehaviour
             this.isPlayerInTrigger = true;
         }
     }
+    //判断玩家是否离开了近战攻击范围
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
@@ -118,6 +124,24 @@ public class XuanShuGuard : MonoBehaviour
             animator.SetBool("isWalking", false);
         }
         animator.SetBool("isAttacking", this.isAttacking);
+        if (this.isDead)
+        {
+            animator.SetBool("isDead", isDead);
+            Die();
+        }
+    }
+    private void Die()
+    {
+        if (this.isDead)
+        {
+            //似了
+            state = animator.GetCurrentAnimatorStateInfo(0);
+            if(state.IsName("die") && state.normalizedTime >= 1.0f)
+            {
+                //动画播放完成
+                Destroy(gameObject);
+            }
+        }
     }
     private void AttackShortRange()
     {
@@ -144,6 +168,7 @@ public class XuanShuGuard : MonoBehaviour
             }
         }
     }
+    //计算攻击CD的协程
     private IEnumerator AttackCDControl()
     {
         if (this.isAttackCDing)
