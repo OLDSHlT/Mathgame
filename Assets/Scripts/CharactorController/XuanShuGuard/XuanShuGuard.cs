@@ -11,7 +11,7 @@ public class XuanShuGuard : MonoBehaviour
     public float attackCD = 1.5f;
     public int HP = 200;
 
-    private bool isDead = true;
+    private bool isDead = false;
     private AnimatorStateInfo state;
     private bool isAttackCDing = false;
     private bool isAttacking = false;
@@ -124,6 +124,10 @@ public class XuanShuGuard : MonoBehaviour
             animator.SetBool("isWalking", false);
         }
         animator.SetBool("isAttacking", this.isAttacking);
+        if(this.HP <= 0)
+        {
+            this.isDead = true;
+        }
         if (this.isDead)
         {
             animator.SetBool("isDead", isDead);

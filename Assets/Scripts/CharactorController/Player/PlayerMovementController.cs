@@ -1,4 +1,4 @@
-using System;
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Timeline;
@@ -10,7 +10,6 @@ public class PlayerMovementController : MonoBehaviour
     public float movementSpeed = 8.0f;
     public float sprintCD = 1.5f;
     public float sprintDuration = 0.1f;
-    public float attackDuration = 1f;
     public float attackCD = 0.5f;
     public float recoverDuration = 1f;
     public float recoverCD = 0.5f;
@@ -20,11 +19,13 @@ public class PlayerMovementController : MonoBehaviour
 
     Animator animator;
     Rigidbody2D rb2d;
+    AnimatorStateInfo state;
     //跳跃时间计时器
     private float jumpTime = 0f;
     private bool isJumpTouch = false;
     private float maxJumpTime = 0.2f;
     //各种状态的触发器
+    private bool isAttackCD = false;
     private bool isSprinting = false;
     private bool isSprintCD = false;
     private bool isRunning = false;
@@ -32,6 +33,7 @@ public class PlayerMovementController : MonoBehaviour
     private bool isStickOnWall = false;
     private bool isRecovering = false;
     private bool isRecoverCD = false;
+    private bool isAttacking = false;
 
     void Start()
     {
@@ -144,6 +146,50 @@ public class PlayerMovementController : MonoBehaviour
         animator.SetBool("isStickOnWall", isStickOnWall);
         animator.SetBool("isRecovering", isRecovering);
 
+        if (Input.GetKey(KeyCode.X) || isAttacking)
+        {
+            //当点击攻击或者正在攻击时调用
+            Attack();
+        }
+
+    }
+    //攻击方法
+    private void Attack()
+    {
+        if (!isAttacking && !isAttackCD)
+        {
+            //没有正在进行的攻击且没有CD
+            this.isAttacking = true;
+            if(Random.Range(0,2) == 0)
+            {
+                animator.SetBool("attack1", true);
+            }
+            else
+            {
+                animator.SetBool("attack2", true);
+            }
+        }
+        else
+        {
+            //有正在进行的动画，判断是否播放完毕
+            state = animator.GetCurrentAnimatorStateInfo(0);
+            if(state.IsName("attack1") && state.normalizedTime >= 1.0f)
+            {
+                //播放完毕
+                this.isAttacking = false;
+                animator.SetBool("attack1", false);
+                isAttackCD = true;
+                StartCoroutine(AttackCounter());
+            }
+            else if(state.IsName("attack2") && state.normalizedTime >= 1.0f)
+            {
+                //播放完毕
+                this.isAttacking = false;
+                animator.SetBool("attack2", false);
+                isAttackCD = true;
+                StartCoroutine(AttackCounter());
+            }
+        }
     }
     //协程用于计时
     private IEnumerator SprintCounter()
@@ -166,6 +212,14 @@ public class PlayerMovementController : MonoBehaviour
             this.isRecoverCD = true;
             yield return new WaitForSeconds(this.recoverCD);
             this.isRecoverCD = false;
+        }
+    }
+    private IEnumerator AttackCounter()
+    {
+        if (isAttackCD)
+        {
+            yield return new WaitForSeconds(this.attackCD);
+            this.isAttackCD = false;
         }
     }
 }
