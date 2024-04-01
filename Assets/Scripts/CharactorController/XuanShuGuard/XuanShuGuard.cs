@@ -5,14 +5,14 @@ using UnityEngine;
 
 public class XuanShuGuard : MonoBehaviour
 {
-    public GameObject player;
+    public GameObject player; //攻击的对象——一般为玩家
     public float speed = 2f;
     public float detactDistance = 100f;
     public float attackCD = 1.5f;
     public int HP = 200;
 
     private bool isDead = false;
-    private AnimatorStateInfo state;
+    private AnimatorStateInfo state; //动画状态机状态
     private bool isAttackCDing = false;
     private bool isAttacking = false;
 
@@ -159,7 +159,7 @@ public class XuanShuGuard : MonoBehaviour
             }
             else
             {
-                //由已经开始的攻击，判断结束
+                //有已经开始的攻击，判断结束
                 state = animator.GetCurrentAnimatorStateInfo(0);
                 if(state.IsName("attack") && state.normalizedTime >= 1.0f)
                 {
@@ -168,6 +168,7 @@ public class XuanShuGuard : MonoBehaviour
                     //开始使用协程计算CD
                     this.isAttackCDing = true;
                     StartCoroutine(AttackCDControl());
+                    //造成伤害
                 }
             }
         }
