@@ -13,7 +13,7 @@ public class PlayerMovementController : MonoBehaviour
     public float attackCD = 0.5f;
     public float recoverDuration = 1f;
     public float recoverCD = 0.5f;
-    public float jumpHeight = 2f;
+    public float jumpForce = 10f;
     Vector2 movement = new Vector2();
     private TouchingDetactor touchingDetactor;
 
@@ -21,9 +21,9 @@ public class PlayerMovementController : MonoBehaviour
     Rigidbody2D rb2d;
     AnimatorStateInfo state;
     //跳跃时间计时器
-    private float jumpTime = 0f;
-    private bool isJumpTouch = false;
-    private float maxJumpTime = 0.2f;
+    private float jumpTime = 0f; //按住空格起跳的时间
+    private float maxJumpTime = 0.2f; //最大的跳跃时间
+    private bool isJumpAllow = true;
     //各种状态的触发器
     private bool isAttackCD = false;
     private bool isSprinting = false;
@@ -46,6 +46,7 @@ public class PlayerMovementController : MonoBehaviour
     void Update()
     {
         UpdateState();
+        UpdateJumpState();
         MovePlayer();
     }
     private void FixedUpdate()
@@ -58,6 +59,7 @@ public class PlayerMovementController : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftShift) && !isSprintCD)
         {
             this.isSprinting = true;
+            //启动奔跑CD的协程
             StartCoroutine(SprintCounter());
         }
         //真正的速度
@@ -72,36 +74,64 @@ public class PlayerMovementController : MonoBehaviour
             actualSpeed = this.movementSpeed;
         }
         movement.x = Input.GetAxisRaw("Horizontal");
-        movement.Normalize();
+        //转换为单位向量
+        //movement.Normalize();
+        movement.y = rb2d.velocity.y;
         //jump
-        if (Input.GetKey(KeyCode.Space) && !touchingDetactor.isWall)
+        if (Input.GetKey(KeyCode.Space) && isJumpAllow)
         {
-            if (touchingDetactor.isGrounded)
-            {
-                rb2d.AddForce(Vector2.up * 8f, ForceMode2D.Impulse);
-            }
-            //待修改
-            else if(jumpTime < maxJumpTime)
-            {
-                Jump(movement.x * actualSpeed);
-            }
-            if(jumpTime < maxJumpTime)
-            {
-                jumpTime += Time.deltaTime;
-            }
+            movement.y = jumpForce;
+        }else if (Input.GetKeyUp(KeyCode.Space) && isJumpAllow)
+        {
+            //当在允许跳跃时松开了跳跃键
+            movement.y = 0;
         }
         //蹬墙跳
         if (Input.GetKeyDown(KeyCode.Space) && !touchingDetactor.isGrounded && touchingDetactor.isWall)
         {
-            rb2d.AddForce(Vector2.up * 8f, ForceMode2D.Impulse); 
+            //rb2d.AddForce(Vector2.up * 8f, ForceMode2D.Impulse); 
         }
         //overturn the spirit
         TurnCheck();
-        rb2d.velocity = new Vector2(movement.x * actualSpeed, rb2d.velocity.y);
+        
+        
+        rb2d.velocity = new Vector2(movement.x * actualSpeed, movement.y);
+        
+        
     }
-    private void Jump(float movement)
+    private void UpdateJumpState()
     {
-        rb2d.velocity = new Vector2(movement, 10f);
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            //松开空格时重置计算时间
+            this.jumpTime = 0f;
+        }else if (Input.GetKey(KeyCode.Space))
+        {
+            //按住空格时
+            if (touchingDetactor.isGrounded)
+            {
+                //在地面时
+                this.isJumpAllow = true;
+            }
+            else if (!touchingDetactor.isGrounded && jumpTime < maxJumpTime)
+            {
+                //没在地面，但是没达到最大跳跃时间
+                jumpTime = jumpTime + Time.deltaTime; //累加时间
+                this.isJumpAllow = true;
+            }
+            else
+            {
+                //没在地面且超过最大跳跃时间
+                this.isJumpAllow = false;
+            }
+            
+        }
+        else if(touchingDetactor.isGrounded)
+        {
+            //在地面时
+            this.jumpTime = 0f;
+            isJumpAllow = true;
+        }
     }
     private void TurnCheck()
     {
