@@ -34,6 +34,7 @@ public class PlayerMovementController : MonoBehaviour
     private bool isRecovering = false;
     private bool isRecoverCD = false;
     private bool isAttacking = false;
+    public bool isFalling = false;
 
     void Start()
     {
@@ -81,9 +82,9 @@ public class PlayerMovementController : MonoBehaviour
         if (Input.GetKey(KeyCode.Space) && isJumpAllow)
         {
             movement.y = jumpForce;
-        }else if (Input.GetKeyUp(KeyCode.Space) && isJumpAllow)
+        }else if (Input.GetKeyUp(KeyCode.Space) && jumpTime < maxJumpTime)
         {
-            //当在允许跳跃时松开了跳跃键
+            //当在跳跃时间小于最大跳跃时间时松开了跳跃键
             movement.y = 0;
         }
         //蹬墙跳
@@ -103,8 +104,8 @@ public class PlayerMovementController : MonoBehaviour
     {
         if (Input.GetKeyUp(KeyCode.Space))
         {
-            //松开空格时重置计算时间
-            this.jumpTime = 0f;
+            //松开空格时锁定跳跃 防止二段跳
+            this.isJumpAllow = false;
         }else if (Input.GetKey(KeyCode.Space))
         {
             //按住空格时
@@ -164,7 +165,15 @@ public class PlayerMovementController : MonoBehaviour
             //重置跳跃时间
             jumpTime = 0f;
         }
-        if(Input.GetKey(KeyCode.Q) && !this.isRecoverCD && !this.isRunning && !this.isRecovering)
+        if (rb2d.velocity.y <= 0 && !touchingDetactor.isGrounded)
+        {
+            isFalling = true;
+        }
+        else
+        {
+            isFalling = false;
+        }
+        if (Input.GetKey(KeyCode.Q) && !this.isRecoverCD && !this.isRunning && !this.isRecovering)
         {
             this.isRecovering = true;
             StartCoroutine(RecoverCounter());
