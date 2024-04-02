@@ -118,7 +118,7 @@ public class PlayerMovementController : MonoBehaviour
             {
                 //没在地面，但是没达到最大跳跃时间
                 jumpTime = jumpTime + Time.deltaTime; //累加时间
-                this.isJumpAllow = true;
+                //this.isJumpAllow = true;
             }
             else
             {
