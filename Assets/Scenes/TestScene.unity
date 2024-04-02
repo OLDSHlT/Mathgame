@@ -3219,6 +3219,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: XuanshuGuard
       objectReference: {fileID: 0}
+    - target: {fileID: 8822573778478865073, guid: e823635e0a947d8468ab1bf658510925, type: 3}
+      propertyPath: m_IncludeLayers.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
