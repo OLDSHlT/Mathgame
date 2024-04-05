@@ -90,7 +90,21 @@ public class PlayerMovementController : MonoBehaviour
         //蹬墙跳
         if (Input.GetKeyDown(KeyCode.Space) && !touchingDetactor.isGrounded && touchingDetactor.isWall)
         {
-            //rb2d.AddForce(Vector2.up * 8f, ForceMode2D.Impulse); 
+            //当角色位于墙壁
+            //给角色一个反方向斜上方的力
+            if(gameObject.transform.localScale.x > 0)
+            {
+                //面向右
+                rb2d.AddForce(new Vector2(0, 3));
+                rb2d.velocity = new Vector2(-5, rb2d.velocity.y);
+                movement.x = -5;
+            }
+            else
+            {
+                rb2d.AddForce(new Vector2(0, 3));
+                rb2d.velocity = new Vector2(5, rb2d.velocity.y);
+                movement.x = 5;
+            }
         }
         //overturn the spirit
         TurnCheck();
@@ -157,13 +171,12 @@ public class PlayerMovementController : MonoBehaviour
         }
         if (!touchingDetactor.isGrounded)
         {
+            //还得判断是否在下落（待修改）
             this.isJumping = true;
         }
         else
         {
             this.isJumping = false;
-            //重置跳跃时间
-            jumpTime = 0f;
         }
         if (rb2d.velocity.y <= 0 && !touchingDetactor.isGrounded)
         {
