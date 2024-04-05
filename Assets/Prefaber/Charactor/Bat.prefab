@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5060326995713156282}
   - component: {fileID: 7298375604914935963}
   - component: {fileID: 3585021824221697132}
+  - component: {fileID: 6798656633114114932}
   m_Layer: 8
   m_Name: Bat
   m_TagString: Untagged
@@ -180,3 +181,17 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &6798656633114114932
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6722207677236301751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce0cd3eb033c898448b88d2c357f0cb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waypoint: []
+  FlySpeed: 4

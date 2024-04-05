@@ -37,6 +37,14 @@ namespace fractionProcessor
         public int GetCommonDivisior(){
             return this.commonDivisior;
         }
+        public int GetDivisor()
+        {
+            return this.divisor;
+        }
+        public int GetDividend()
+        {
+            return this.dividend;
+        }
         public override string ToString(){
             return this.divisor + "/" + this.dividend + " common divisor: " + commonDivisior;
         }

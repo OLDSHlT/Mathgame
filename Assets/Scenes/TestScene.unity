@@ -3171,6 +3171,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1354545310332511636, guid: e823635e0a947d8468ab1bf658510925, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1354545310332511636, guid: e823635e0a947d8468ab1bf658510925, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0.7
+      objectReference: {fileID: 0}
     - target: {fileID: 2894149471393502736, guid: e823635e0a947d8468ab1bf658510925, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.73
@@ -3211,6 +3219,38 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3024827815786238865, guid: e823635e0a947d8468ab1bf658510925, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3024827815786238865, guid: e823635e0a947d8468ab1bf658510925, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3024827815786238865, guid: e823635e0a947d8468ab1bf658510925, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.522
+      objectReference: {fileID: 0}
+    - target: {fileID: 3360500294293204634, guid: e823635e0a947d8468ab1bf658510925, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3360500294293204634, guid: e823635e0a947d8468ab1bf658510925, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3360500294293204634, guid: e823635e0a947d8468ab1bf658510925, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.522
+      objectReference: {fileID: 0}
+    - target: {fileID: 4848035217891199114, guid: e823635e0a947d8468ab1bf658510925, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4848035217891199114, guid: e823635e0a947d8468ab1bf658510925, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0.7
+      objectReference: {fileID: 0}
     - target: {fileID: 5404342850905614631, guid: e823635e0a947d8468ab1bf658510925, type: 3}
       propertyPath: player
       value: 
@@ -3218,10 +3258,6 @@ PrefabInstance:
     - target: {fileID: 6059463705207761539, guid: e823635e0a947d8468ab1bf658510925, type: 3}
       propertyPath: m_Name
       value: XuanshuGuard
-      objectReference: {fileID: 0}
-    - target: {fileID: 8822573778478865073, guid: e823635e0a947d8468ab1bf658510925, type: 3}
-      propertyPath: m_IncludeLayers.m_Bits
-      value: 64
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
