@@ -274,4 +274,9 @@ public class PlayerMovementController : MonoBehaviour
             this.isAttackCD = false;
         }
     }
+
+    public void Stop_x()
+    {
+        rb2d.velocity = new Vector2(0,rb2d.velocity.y);
+    }
 }
