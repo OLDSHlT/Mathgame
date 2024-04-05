@@ -16,13 +16,12 @@ public class XuanShuGuard : MonoBehaviour
     private bool isAttackCDing = false;
     private bool isAttacking = false;
 
-    private FractionProcessor fractionProcesser;
-    private attackModes attackMode = attackModes.ShortRange;
+    private AttackModes attackMode = AttackModes.ShortRange;
     private Rigidbody2D rb2d;
     private Vector2 movement;
     private bool isPlayerInTrigger = false;
     private Animator animator;
-    private enum attackModes{
+    private enum AttackModes{
         LongRange = 0,
         ShortRange = 1
     }
@@ -31,15 +30,7 @@ public class XuanShuGuard : MonoBehaviour
     {
         this.rb2d = GetComponent<Rigidbody2D>();
         this.animator = GetComponent<Animator>();
-        int randomInt = Random.Range(0, 10);
-        if(randomInt >= 5)
-        {
-            fractionProcesser = new FractionProcessor(new FractionGeneratorWith3());
-        }
-        else
-        {
-            fractionProcesser = new FractionProcessor(new FractionGeneratorWith2());
-        }
+        
     }
 
     // Update is called once per frame
@@ -70,7 +61,7 @@ public class XuanShuGuard : MonoBehaviour
             //近战攻击
             //如果玩家不在攻击范围内
             //走向玩家
-            if(attackMode == attackModes.ShortRange)
+            if(attackMode == AttackModes.ShortRange)
             {
                 if (!isPlayerInTrigger && !isAttacking || isAttackCDing)
                 {
