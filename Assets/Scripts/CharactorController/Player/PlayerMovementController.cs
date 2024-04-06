@@ -10,37 +10,50 @@ public class PlayerMovementController : MonoBehaviour
     public float movementSpeed = 8.0f;
     public float sprintCD = 1.5f;
     public float sprintDuration = 0.1f;
-    public float attackCD = 0.5f;
-    public float recoverDuration = 1f;
-    public float recoverCD = 0.5f;
     public float jumpForce = 10f;
     Vector2 movement = new Vector2();
     private TouchingDetactor touchingDetactor;
 
     Animator animator;
     Rigidbody2D rb2d;
-    AnimatorStateInfo state;
+    Damageable damageable;
     //跳跃时间计时器
     private float jumpTime = 0f; //按住空格起跳的时间
     private float maxJumpTime = 0.2f; //最大的跳跃时间
     private bool isJumpAllow = true;
     //各种状态的触发器
-    private bool isAttackCD = false;
     private bool isSprinting = false;
     private bool isSprintCD = false;
-    private bool isRunning = false;
+    public bool isRunning = false;
     private bool isJumping = false;
     private bool isStickOnWall = false;
-    private bool isRecovering = false;
-    private bool isRecoverCD = false;
-    private bool isAttacking = false;
+
     public bool isFalling = false;
+
+    //判断人物朝向
+    private bool _isFacingLeft = false;
+    public bool isFacingLeft
+    {
+        get { return _isFacingLeft; }
+        private set
+        {
+            if(this.transform.localScale.x > 0)
+            {
+                isFacingLeft = false;
+            }
+            else
+            {
+                isFacingLeft = true;
+            }
+        }
+    }
 
     void Start()
     {
         this.animator = GetComponent<Animator>();
         this.rb2d = GetComponent<Rigidbody2D>();
         this.touchingDetactor = GetComponent<TouchingDetactor>();
+        this.damageable = GetComponent<Damageable>();
     }
 
     // Update is called once per frame
@@ -48,7 +61,10 @@ public class PlayerMovementController : MonoBehaviour
     {
         UpdateState();
         UpdateJumpState();
-        MovePlayer();
+        if (!damageable.isUnderAttackCooldown)
+        {
+            MovePlayer();
+        }
     }
     private void FixedUpdate()
     {
@@ -186,63 +202,17 @@ public class PlayerMovementController : MonoBehaviour
         {
             isFalling = false;
         }
-        if (Input.GetKey(KeyCode.Q) && !this.isRecoverCD && !this.isRunning && !this.isRecovering)
-        {
-            this.isRecovering = true;
-            StartCoroutine(RecoverCounter());
-        }
+        
         
         animator.SetBool("isSprinting", isSprinting);
         animator.SetBool("isRunning", isRunning);
         animator.SetBool("isJumping", isJumping);
         animator.SetBool("isStickOnWall", isStickOnWall);
-        animator.SetBool("isRecovering", isRecovering);
+        
 
-        if (Input.GetKey(KeyCode.X) || isAttacking)
-        {
-            //当点击攻击或者正在攻击时调用
-            Attack();
-        }
 
     }
-    //攻击方法
-    private void Attack()
-    {
-        if (!isAttacking && !isAttackCD)
-        {
-            //没有正在进行的攻击且没有CD
-            this.isAttacking = true;
-            if(Random.Range(0,2) == 0)
-            {
-                animator.SetBool("attack1", true);
-            }
-            else
-            {
-                animator.SetBool("attack2", true);
-            }
-        }
-        else
-        {
-            //有正在进行的动画，判断是否播放完毕
-            state = animator.GetCurrentAnimatorStateInfo(0);
-            if(state.IsName("attack1") && state.normalizedTime >= 1.0f)
-            {
-                //播放完毕
-                this.isAttacking = false;
-                animator.SetBool("attack1", false);
-                isAttackCD = true;
-                StartCoroutine(AttackCounter());
-            }
-            else if(state.IsName("attack2") && state.normalizedTime >= 1.0f)
-            {
-                //播放完毕
-                this.isAttacking = false;
-                animator.SetBool("attack2", false);
-                isAttackCD = true;
-                StartCoroutine(AttackCounter());
-            }
-        }
-    }
+    
     //协程用于计时
     private IEnumerator SprintCounter()
     {
@@ -255,28 +225,5 @@ public class PlayerMovementController : MonoBehaviour
             this.isSprintCD = false;
         }
     }
-    private IEnumerator RecoverCounter()
-    {
-        if (isRecovering)
-        {
-            yield return new WaitForSeconds(this.recoverDuration);
-            this.isRecovering = false;
-            this.isRecoverCD = true;
-            yield return new WaitForSeconds(this.recoverCD);
-            this.isRecoverCD = false;
-        }
-    }
-    private IEnumerator AttackCounter()
-    {
-        if (isAttackCD)
-        {
-            yield return new WaitForSeconds(this.attackCD);
-            this.isAttackCD = false;
-        }
-    }
-
-    public void Stop_x()
-    {
-        rb2d.velocity = new Vector2(0,rb2d.velocity.y);
-    }
+    
 }

@@ -57,10 +57,10 @@ public class Damageable : MonoBehaviour
         private set { animator.SetBool(AnimationString.LockVelocity, value); }
     }
     //private bool isDefend { get { return animator.GetBool(AnimationString.isDefend); } }//后期用于设置能否
-    private bool canKnock //能否 被击退；（否/是  霸体）
-    { get { return animator.GetBool(AnimationString.canKnock); } }
+    public bool canKnock = true;//能否 被击退；（否/是  霸体）
+    
 
-    private bool isInvincible = false;//是否处于无敌状态
+    public bool isUnderAttackCooldown = false;//是否处于无敌状态 实际上是受击CD
     public bool RollTriggerInvincible = false;
     public float InvincibieTime = 0.5f;//受伤后的无敌时间
     [SerializeField]
@@ -76,21 +76,21 @@ public class Damageable : MonoBehaviour
     private void Update()
     {   //主要用于检测是否处于无敌状态
         if (RollTriggerInvincible == true)
-            isInvincible = true;
+            isUnderAttackCooldown = true;
         else if (!RollTriggerInvincible && Timer == 0)
         {
-            isInvincible = false;
+            isUnderAttackCooldown = false;
         }
-        if (isInvincible && !RollTriggerInvincible)
+        if (isUnderAttackCooldown && !RollTriggerInvincible)
         {
             Timer += Time.deltaTime;
             if (InvincibieTime <= Timer)
             {
-                isInvincible = false;
+                isUnderAttackCooldown = false;
                 Timer = 0;
             }
         }
-        Console.WriteLine();
+        //Console.WriteLine();
     }
     public bool Hit(int damage, Vector2 knockback)//受击判定
     {
@@ -103,14 +103,14 @@ public class Damageable : MonoBehaviour
         //    Timer += 0.000001f;
         //    return true;
         //}
-        if (isAlive && !isInvincible)
+        if (isAlive && !isUnderAttackCooldown)
         {
             Health -= damage;
             damageableHitEvent?.Invoke(damage, knockback);
             animator.SetTrigger(AnimationString.HitTrigger);//后期用于设置动画器的“受击”Trigger
 
                             //CharactorEvents.characterDamaged.Invoke(gameObject, damage);
-            isInvincible = true;
+            isUnderAttackCooldown = true;
             Timer += 0.000001f;
             return true;
         }

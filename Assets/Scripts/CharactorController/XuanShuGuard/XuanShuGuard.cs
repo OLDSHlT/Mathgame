@@ -5,13 +5,11 @@ using UnityEngine;
 
 public class XuanShuGuard : MonoBehaviour
 {
-    public GameObject player; //攻击的对象——一般为玩家
     public float speed = 2f;
-    public float detactDistance = 100f;
+    public DetactionArea warningZone; //设定的巡逻范围
+    public float minDistance = 1f;
     public float attackCD = 1.5f;
-    public int HP = 200;
 
-    private bool isDead = false;
     private AnimatorStateInfo state; //动画状态机状态
     private bool isAttackCDing = false;
     private bool isAttacking = false;
@@ -21,6 +19,7 @@ public class XuanShuGuard : MonoBehaviour
     private Vector2 movement;
     private bool isPlayerInTrigger = false;
     private Animator animator;
+    private Damageable damageable;
     private enum AttackModes{
         LongRange = 0,
         ShortRange = 1
@@ -30,13 +29,13 @@ public class XuanShuGuard : MonoBehaviour
     {
         this.rb2d = GetComponent<Rigidbody2D>();
         this.animator = GetComponent<Animator>();
-        
+        this.damageable = GetComponent<Damageable>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!this.isDead)
+        if (this.damageable.isAlive)
         {
             Move();
         }
@@ -55,36 +54,42 @@ public class XuanShuGuard : MonoBehaviour
     }
     private void Move()
     {
-        float distance = Vector2.Distance(this.transform.position, player.transform.position);
-        if(distance <= detactDistance)
+        float distance = Vector2.Distance(this.transform.position, warningZone.target.transform.position);
+        if (warningZone != null)
         {
-            //近战攻击
-            //如果玩家不在攻击范围内
-            //走向玩家
-            if(attackMode == AttackModes.ShortRange)
+            //有巡逻范围
+            if (warningZone.isTargetEnter)
             {
-                if (!isPlayerInTrigger && !isAttacking || isAttackCDing)
+                if (attackMode == AttackModes.ShortRange)
                 {
-                    if (this.transform.position.x < this.player.transform.position.x)
+                    //近战模式
+                    //如果玩家不在攻击范围内
+                    //走向玩家
+                    if (!isPlayerInTrigger && !isAttacking || isAttackCDing && distance >= minDistance)
                     {
-                        movement = new Vector2(1, 0);
+                        if (this.transform.position.x < warningZone.target.transform.position.x)
+                        {
+                            movement = new Vector2(1, 0);
+                        }
+                        else
+                        {
+                            movement = new Vector2(-1, 0);
+                        }
                     }
                     else
                     {
-                        movement = new Vector2(-1, 0);
+                        AttackShortRange();
+                        movement = new Vector2();
                     }
                 }
-                else
-                {
-                    AttackShortRange();
-                    movement = new Vector2();
-                }
+                
+            }
+            else
+            {
+                movement = new Vector2();
             }
         }
-        else
-        {
-            movement = new Vector2();
-        }
+        
         rb2d.velocity = new Vector2(movement.x * speed, rb2d.velocity.y);
         TurnCheck();
     }
@@ -115,29 +120,24 @@ public class XuanShuGuard : MonoBehaviour
             animator.SetBool("isWalking", false);
         }
         animator.SetBool("isAttacking", this.isAttacking);
-        if(this.HP <= 0)
+        if (!damageable.isAlive)
         {
-            this.isDead = true;
-        }
-        if (this.isDead)
-        {
-            animator.SetBool("isDead", isDead);
+            animator.SetBool("isDead", true);
             Die();
         }
     }
+
     private void Die()
     {
-        if (this.isDead)
+        //似了
+        state = animator.GetCurrentAnimatorStateInfo(0);
+        if (state.IsName("die") && state.normalizedTime >= 1.0f)
         {
-            //似了
-            state = animator.GetCurrentAnimatorStateInfo(0);
-            if(state.IsName("die") && state.normalizedTime >= 1.0f)
-            {
-                //动画播放完成
-                Destroy(gameObject);
-            }
+            //动画播放完成
+            Destroy(gameObject);
         }
     }
+
     private void AttackShortRange()
     {
         if (!isAttackCDing)
@@ -160,6 +160,19 @@ public class XuanShuGuard : MonoBehaviour
                     this.isAttackCDing = true;
                     StartCoroutine(AttackCDControl());
                     //造成伤害
+                    if (this.isPlayerInTrigger)
+                    {
+                        Damageable d = warningZone.target.GetComponent<Damageable>();//获取damageable组件
+                        if (warningZone.target.transform.position.x - this.transform.position.x < 0)
+                        {
+                            d.Hit(20, new Vector2(-5, 2));
+                        }
+                        else
+                        {
+                            d.Hit(20, new Vector2(5, 2));
+                        }
+                        
+                    }
                 }
             }
         }
