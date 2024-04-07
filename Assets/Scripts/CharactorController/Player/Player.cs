@@ -3,15 +3,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//这个脚本负责攻击和恢复等动作
 public class Player : MonoBehaviour
 {
-    private Damageable damageable;
+    Damageable damageable;
     AnimatorStateInfo state;
     Animator animator;
     PlayerMovementController movementController;
+    AOEDamageZone damageZone;
+    Rigidbody2D rb2d;
+    SlabStoneContainer slabStoneContainer;
 
     public bool isAttacking = false;
     private bool isAttackCD = false;
+    public bool isAttackKeyFrame = false;
     public bool isRecovering = false;
     private bool isRecoverCD = false;
 
@@ -25,6 +30,9 @@ public class Player : MonoBehaviour
         this.damageable = GetComponent<Damageable>();
         this.animator = GetComponent<Animator>();
         this.movementController = GetComponent<PlayerMovementController>();
+        this.damageZone = transform.Find("AttackArea").gameObject.GetComponent<AOEDamageZone>();
+        this.rb2d = GetComponent<Rigidbody2D>();
+        this.slabStoneContainer = GetComponent<SlabStoneContainer>();
     }
 
     // Update is called once per frame
@@ -41,6 +49,26 @@ public class Player : MonoBehaviour
     private void UpdateStatus()
     {
         animator.SetBool("isRecovering", isRecovering);
+        if (damageable.isUnderAttackCooldown)
+        {
+            //被攻击硬直
+            animator.SetBool("isUnderAttack", true);
+        }
+        else
+        {
+            animator.SetBool("isUnderAttack", false);
+        }
+        if (!damageable.isAlive)
+        {
+            //die
+            animator.SetBool("isSprinting", false);
+            animator.SetBool("isRunning", false);
+            animator.SetBool("isJumping", false);
+            animator.SetBool("isStickOnWall", false);
+            animator.SetBool("isUnderAttack", false);
+            animator.SetBool("isDead", true);
+            Die();
+        }
     }
     private void UpdateInput()
     {
@@ -53,6 +81,11 @@ public class Player : MonoBehaviour
         {
             this.isRecovering = true;
             StartCoroutine(RecoverCounter());
+        }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            //切换约分石板
+            slabStoneContainer.SwitchSelectSlabStone();
         }
         
     }
@@ -93,6 +126,25 @@ public class Player : MonoBehaviour
                 StartCoroutine(AttackCounter());
             }
         }
+        if (isAttackKeyFrame)
+        {
+            //位于共计关键帧中，造成伤害
+            foreach(GameObject enemy in damageZone.enemyList)
+            {
+                enemy.GetComponent<Damageable>().Hit(10, new Vector2(3,0));
+            }
+        }
+    }
+    private void Die()
+    {
+        rb2d.velocity = new Vector2(0, 0);
+        //似了
+        state = animator.GetCurrentAnimatorStateInfo(0);
+        if (state.IsName("death") && state.normalizedTime >= 1.0f)
+        {
+            //动画播放完成
+            Destroy(gameObject);
+        }
     }
     //计算攻击CD的协程
     private IEnumerator AttackCounter()
@@ -110,6 +162,9 @@ public class Player : MonoBehaviour
         {
             yield return new WaitForSeconds(this.recoverDuration);
             this.isRecovering = false;
+
+            damageable.Heal(10);
+
             this.isRecoverCD = true;
             yield return new WaitForSeconds(this.recoverCD);
             this.isRecoverCD = false;

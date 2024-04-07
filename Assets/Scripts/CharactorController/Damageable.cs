@@ -10,9 +10,12 @@ public class Damageable : MonoBehaviour
     public UnityEvent<int, int> healthchanged;
     public UnityEvent deathEvent;
     public GameObject Spoil;//战利品
+    private Color originalColor;
+    private Color hitColor = Color.red;
     //引用
     Animator animator;
     Rigidbody2D rd;
+    SpriteRenderer spriteRenderer; //精灵渲染器，用于修改被攻击时的颜色
     //属性
     [SerializeField]
     public int _maxHealth = 100;
@@ -61,6 +64,7 @@ public class Damageable : MonoBehaviour
     
 
     public bool isUnderAttackCooldown = false;//是否处于无敌状态 实际上是受击CD
+    public bool isInvincible = false;
     public bool RollTriggerInvincible = false;
     public float InvincibieTime = 0.5f;//受伤后的无敌时间
     [SerializeField]
@@ -70,7 +74,8 @@ public class Damageable : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         rd = GetComponent<Rigidbody2D>();
-
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        originalColor = spriteRenderer.color;//原始颜色
         //print("start");
     }
     private void Update()
@@ -105,9 +110,13 @@ public class Damageable : MonoBehaviour
         //}
         if (isAlive && !isUnderAttackCooldown)
         {
-            Health -= damage;
+            if (!isInvincible)//无敌的时候不掉血，但是可以被击退
+            {
+                Health -= damage;
+            }
+            
             damageableHitEvent?.Invoke(damage, knockback);
-            animator.SetTrigger(AnimationString.HitTrigger);//后期用于设置动画器的“受击”Trigger
+            //animator.SetTrigger(AnimationString.HitTrigger);//后期用于设置动画器的“受击”Trigger
 
                             //CharactorEvents.characterDamaged.Invoke(gameObject, damage);
             isUnderAttackCooldown = true;
@@ -122,6 +131,13 @@ public class Damageable : MonoBehaviour
         LockVelocity = true;
         if (canKnock)//若无霸体
             rd.velocity = new Vector2(knockback.x, rd.velocity.y + knockback.y);
+        spriteRenderer.color = hitColor;
+        Invoke("RestoreColor", 0.5f);
+    }
+    private void RestoreColor()
+    {
+        // 恢复角色的原始颜色
+        spriteRenderer.color = originalColor;
     }
 
     public void Heal(int HealthRestore)//治疗

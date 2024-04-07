@@ -14,7 +14,9 @@ public class XuanShuFractionComponent : MonoBehaviour
     private FractionProcessor fractionProcessor;//分数生成器
     public int numerator;
     public int denominator;
-    
+    public SlabStoneContainer playerFraction;
+    Damageable damageable;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,7 +29,7 @@ public class XuanShuFractionComponent : MonoBehaviour
         this.denominatorTen = img2.GetComponent<Image>();
         this.numeratorUnit = img3.GetComponent<Image>();
         this.denominatorUnit = img4.GetComponent<Image>();
-
+        this.damageable = GetComponent<Damageable>();
 
         int randomInt = Random.Range(0, 10);
         //根据不同情况随机生成2或者3的生成器
@@ -51,6 +53,16 @@ public class XuanShuFractionComponent : MonoBehaviour
     {
         this.numerator = fractionProcessor.GetDivisor();
         this.denominator = fractionProcessor.GetDividend();
+        if (fractionProcessor.IsSimplestFraction())
+        {
+            //最简分数
+            damageable.isInvincible = false;
+        }
+        else
+        {
+            damageable.isInvincible = true;
+        }
+        
     }
     void SetCanvas()
     {
@@ -180,5 +192,17 @@ public class XuanShuFractionComponent : MonoBehaviour
         }
 
         return texture;
+    }
+    public void OnHit(int damage, Vector2 knockback)//计算玄数
+    {
+        if(playerFraction != null)
+        {
+            //Debug.Log("fraction counter");
+            if (playerFraction.selectedSlabStone != null)
+            {
+                fractionProcessor.Reduction(playerFraction.selectedSlabStone.reductionNumber);
+            }
+        }
+        SetCanvas();//更新画布
     }
 }

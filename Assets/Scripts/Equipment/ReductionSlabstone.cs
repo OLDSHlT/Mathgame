@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ReductionSlabstone : MonoBehaviour
 {
-    private int reductionNumber;
+    public int reductionNumber;
     public ReductionSlabstone(int number)
     {
         this.reductionNumber = number;

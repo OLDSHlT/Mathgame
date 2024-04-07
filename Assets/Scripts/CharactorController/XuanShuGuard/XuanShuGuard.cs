@@ -1,4 +1,5 @@
 using fractionProcessor;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,6 +14,7 @@ public class XuanShuGuard : MonoBehaviour
     private AnimatorStateInfo state; //动画状态机状态
     private bool isAttackCDing = false;
     private bool isAttacking = false;
+    public bool isAttackKeyFrame = false;
 
     private AttackModes attackMode = AttackModes.ShortRange;
     private Rigidbody2D rb2d;
@@ -35,7 +37,7 @@ public class XuanShuGuard : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (this.damageable.isAlive)
+        if (this.damageable.isAlive && !damageable.isUnderAttackCooldown)
         {
             Move();
         }
@@ -54,9 +56,14 @@ public class XuanShuGuard : MonoBehaviour
     }
     private void Move()
     {
-        float distance = Vector2.Distance(this.transform.position, warningZone.target.transform.position);
+        
         if (warningZone != null)
         {
+            float distance = 0f;
+            if (warningZone.target != null)
+            {
+                distance = Vector2.Distance(this.transform.position, warningZone.target.transform.position);
+            }
             //有巡逻范围
             if (warningZone.isTargetEnter)
             {
@@ -123,6 +130,7 @@ public class XuanShuGuard : MonoBehaviour
         if (!damageable.isAlive)
         {
             animator.SetBool("isDead", true);
+            animator.SetBool("isWalking", false);
             Die();
         }
     }
@@ -159,6 +167,9 @@ public class XuanShuGuard : MonoBehaviour
                     //开始使用协程计算CD
                     this.isAttackCDing = true;
                     StartCoroutine(AttackCDControl());
+                }
+                if (isAttackKeyFrame)
+                {
                     //造成伤害
                     if (this.isPlayerInTrigger)
                     {
@@ -171,7 +182,6 @@ public class XuanShuGuard : MonoBehaviour
                         {
                             d.Hit(20, new Vector2(5, 2));
                         }
-                        
                     }
                 }
             }

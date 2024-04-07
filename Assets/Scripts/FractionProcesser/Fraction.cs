@@ -72,6 +72,19 @@ namespace fractionProcessor
             }
             this.commonDivisior = number1;
         }
+        // 判断一个分数是否为最简分数
+        public bool IsSimplestFraction()
+        {
+            GetMaxCommonDivisior();
+            if(commonDivisior == 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
     /*
     分数生成器接口

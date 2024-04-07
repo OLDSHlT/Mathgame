@@ -12,8 +12,9 @@ public class PlayerMovementController : MonoBehaviour
     public float sprintDuration = 0.1f;
     public float jumpForce = 10f;
     Vector2 movement = new Vector2();
-    private TouchingDetactor touchingDetactor;
 
+    Transform viewPoint;
+    TouchingDetactor touchingDetactor;
     Animator animator;
     Rigidbody2D rb2d;
     Damageable damageable;
@@ -27,6 +28,7 @@ public class PlayerMovementController : MonoBehaviour
     public bool isRunning = false;
     private bool isJumping = false;
     private bool isStickOnWall = false;
+    private bool isWallJumping = false;
 
     public bool isFalling = false;
 
@@ -54,6 +56,7 @@ public class PlayerMovementController : MonoBehaviour
         this.rb2d = GetComponent<Rigidbody2D>();
         this.touchingDetactor = GetComponent<TouchingDetactor>();
         this.damageable = GetComponent<Damageable>();
+        this.viewPoint = transform.Find("ViewPoint");
     }
 
     // Update is called once per frame
@@ -61,10 +64,12 @@ public class PlayerMovementController : MonoBehaviour
     {
         UpdateState();
         UpdateJumpState();
-        if (!damageable.isUnderAttackCooldown)
+        if (!damageable.isUnderAttackCooldown && !isWallJumping && damageable.isAlive)
         {
             MovePlayer();
         }
+        //overturn the spirit
+        TurnCheck();
     }
     private void FixedUpdate()
     {
@@ -106,25 +111,24 @@ public class PlayerMovementController : MonoBehaviour
         //蹬墙跳
         if (Input.GetKeyDown(KeyCode.Space) && !touchingDetactor.isGrounded && touchingDetactor.isWall)
         {
+            isWallJumping = true;
             //当角色位于墙壁
             //给角色一个反方向斜上方的力
             if(gameObject.transform.localScale.x > 0)
             {
                 //面向右
-                rb2d.AddForce(new Vector2(0, 3));
-                rb2d.velocity = new Vector2(-5, rb2d.velocity.y);
-                movement.x = -5;
+                rb2d.AddForce(new Vector2(0, 5));
+                rb2d.velocity = new Vector2(-2, rb2d.velocity.y);
+                movement.x = -1;
             }
             else
             {
                 rb2d.AddForce(new Vector2(0, 3));
-                rb2d.velocity = new Vector2(5, rb2d.velocity.y);
-                movement.x = 5;
+                rb2d.velocity = new Vector2(2, rb2d.velocity.y);
+                movement.x = 1;
             }
-        }
-        //overturn the spirit
-        TurnCheck();
-        
+            StartCoroutine(WallJumpingCounter());
+        }        
         
         rb2d.velocity = new Vector2(movement.x * actualSpeed, movement.y);
         
@@ -189,6 +193,7 @@ public class PlayerMovementController : MonoBehaviour
         {
             //还得判断是否在下落（待修改）
             this.isJumping = true;
+            
         }
         else
         {
@@ -197,10 +202,20 @@ public class PlayerMovementController : MonoBehaviour
         if (rb2d.velocity.y <= 0 && !touchingDetactor.isGrounded)
         {
             isFalling = true;
+            this.viewPoint.transform.localPosition = new Vector2(0, -2);//改变摄像机的位置，让画面能够看到地面
         }
         else
         {
             isFalling = false;
+            this.viewPoint.transform.localPosition = new Vector2(0, 3);
+        }
+        if (touchingDetactor.isWall && isFalling)
+        {
+            isStickOnWall = true;
+        }
+        else
+        {
+            isStickOnWall = false;
         }
         
         
@@ -212,6 +227,7 @@ public class PlayerMovementController : MonoBehaviour
 
 
     }
+
     
     //协程用于计时
     private IEnumerator SprintCounter()
@@ -223,6 +239,14 @@ public class PlayerMovementController : MonoBehaviour
             this.isSprintCD = true;
             yield return new WaitForSeconds(this.sprintCD);
             this.isSprintCD = false;
+        }
+    }
+    private IEnumerator WallJumpingCounter()
+    {
+        if (isWallJumping)
+        {
+            yield return new WaitForSeconds(0.15f);
+            this.isWallJumping = false;
         }
     }
     
