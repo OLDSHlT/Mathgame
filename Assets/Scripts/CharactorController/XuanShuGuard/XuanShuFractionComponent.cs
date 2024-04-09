@@ -17,6 +17,11 @@ public class XuanShuFractionComponent : MonoBehaviour
     public SlabStoneContainer playerFraction;
     Damageable damageable;
 
+    List<Sprite> verticalSticks;
+    List<Sprite> horizontalSticks;
+    Sprite emptyStick;
+    Transform shield;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +35,7 @@ public class XuanShuFractionComponent : MonoBehaviour
         this.numeratorUnit = img3.GetComponent<Image>();
         this.denominatorUnit = img4.GetComponent<Image>();
         this.damageable = GetComponent<Damageable>();
+        this.shield = transform.Find("Shield");
 
         int randomInt = Random.Range(0, 10);
         //根据不同情况随机生成2或者3的生成器
@@ -41,6 +47,31 @@ public class XuanShuFractionComponent : MonoBehaviour
         {
             fractionProcessor = new FractionProcessor(new FractionGeneratorWith2());
         }
+
+        emptyStick = LoadSpriteFromPath("Assets/Art/MathSticks/empty.png");
+        verticalSticks = new List<Sprite>();
+        horizontalSticks = new List<Sprite>();
+
+        verticalSticks.Add(LoadSpriteFromPath("Assets/Art/MathSticks/1-vertical.png"));
+        verticalSticks.Add(LoadSpriteFromPath("Assets/Art/MathSticks/2-vertical.png"));
+        verticalSticks.Add(LoadSpriteFromPath("Assets/Art/MathSticks/3-vertical.png"));
+        verticalSticks.Add(LoadSpriteFromPath("Assets/Art/MathSticks/4-vertical.png"));
+        verticalSticks.Add(LoadSpriteFromPath("Assets/Art/MathSticks/5-vertical.png"));
+        verticalSticks.Add(LoadSpriteFromPath("Assets/Art/MathSticks/6-vertical.png"));
+        verticalSticks.Add(LoadSpriteFromPath("Assets/Art/MathSticks/7-vertical.png"));
+        verticalSticks.Add(LoadSpriteFromPath("Assets/Art/MathSticks/8-vertical.png"));
+        verticalSticks.Add(LoadSpriteFromPath("Assets/Art/MathSticks/9-vertical.png"));
+
+        horizontalSticks.Add(LoadSpriteFromPath("Assets/Art/MathSticks/1-horizontal.png"));
+        horizontalSticks.Add(LoadSpriteFromPath("Assets/Art/MathSticks/2-horizontal.png"));
+        horizontalSticks.Add(LoadSpriteFromPath("Assets/Art/MathSticks/3-horizontal.png"));
+        horizontalSticks.Add(LoadSpriteFromPath("Assets/Art/MathSticks/4-horizontal.png"));
+        horizontalSticks.Add(LoadSpriteFromPath("Assets/Art/MathSticks/5-horizontal.png"));
+        horizontalSticks.Add(LoadSpriteFromPath("Assets/Art/MathSticks/6-horizontal.png"));
+        horizontalSticks.Add(LoadSpriteFromPath("Assets/Art/MathSticks/7-horizontal.png"));
+        horizontalSticks.Add(LoadSpriteFromPath("Assets/Art/MathSticks/8-horizontal.png"));
+        horizontalSticks.Add(LoadSpriteFromPath("Assets/Art/MathSticks/9-horizontal.png"));
+
         SetCanvas();
     }
 
@@ -57,6 +88,7 @@ public class XuanShuFractionComponent : MonoBehaviour
         {
             //最简分数
             damageable.isInvincible = false;
+            this.shield.gameObject.SetActive(false);
         }
         else
         {
@@ -92,34 +124,34 @@ public class XuanShuFractionComponent : MonoBehaviour
         switch (number)
         {
             case 1:
-                img.sprite = LoadSpriteFromPath("Assets/Art/MathSticks/1-vertical.png");
+                img.sprite = verticalSticks[0];
                 break;
             case 2:
-                img.sprite = LoadSpriteFromPath("Assets/Art/MathSticks/2-vertical.png");
+                img.sprite = verticalSticks[1];
                 break;
             case 3:
-                img.sprite = LoadSpriteFromPath("Assets/Art/MathSticks/3-vertical.png");
+                img.sprite = verticalSticks[2];
                 break;
             case 4:
-                img.sprite = LoadSpriteFromPath("Assets/Art/MathSticks/4-vertical.png");
+                img.sprite = verticalSticks[3];
                 break;
             case 5:
-                img.sprite = LoadSpriteFromPath("Assets/Art/MathSticks/5-vertical.png");
+                img.sprite = verticalSticks[4];
                 break;
             case 6:
-                img.sprite = LoadSpriteFromPath("Assets/Art/MathSticks/6-vertical.png");
+                img.sprite = verticalSticks[5];
                 break;
             case 7:
-                img.sprite = LoadSpriteFromPath("Assets/Art/MathSticks/7-vertical.png");
+                img.sprite = verticalSticks[6];
                 break;
             case 8:
-                img.sprite = LoadSpriteFromPath("Assets/Art/MathSticks/8-vertical.png");
+                img.sprite = verticalSticks[7];
                 break;
             case 9:
-                img.sprite = LoadSpriteFromPath("Assets/Art/MathSticks/9-vertical.png");
+                img.sprite = verticalSticks[8];
                 break;
             default:
-                img.sprite = LoadSpriteFromPath("Assets/Art/MathSticks/empty.png");
+                img.sprite = emptyStick;
                 break;
         }
     }
@@ -128,34 +160,34 @@ public class XuanShuFractionComponent : MonoBehaviour
         switch (number)
         {
             case 1:
-                img.sprite = LoadSpriteFromPath("Assets/Art/MathSticks/1-horizontal.png");
+                img.sprite = horizontalSticks[0];
                 break;
             case 2:
-                img.sprite = LoadSpriteFromPath("Assets/Art/MathSticks/2-horizontal.png");
+                img.sprite = horizontalSticks[1];
                 break;
             case 3:
-                img.sprite = LoadSpriteFromPath("Assets/Art/MathSticks/3-horizontal.png");
+                img.sprite = horizontalSticks[2];
                 break;
             case 4:
-                img.sprite = LoadSpriteFromPath("Assets/Art/MathSticks/4-horizontal.png");
+                img.sprite = horizontalSticks[3];
                 break;
             case 5:
-                img.sprite = LoadSpriteFromPath("Assets/Art/MathSticks/5-horizontal.png");
+                img.sprite = horizontalSticks[4];
                 break;
             case 6:
-                img.sprite = LoadSpriteFromPath("Assets/Art/MathSticks/6-horizontal.png");
+                img.sprite = horizontalSticks[5];
                 break;
             case 7:
-                img.sprite = LoadSpriteFromPath("Assets/Art/MathSticks/7-horizontal.png");
+                img.sprite = horizontalSticks[6];
                 break;
             case 8:
-                img.sprite = LoadSpriteFromPath("Assets/Art/MathSticks/8-horizontal.png");
+                img.sprite = horizontalSticks[7];
                 break;
             case 9:
-                img.sprite = LoadSpriteFromPath("Assets/Art/MathSticks/9-horizontal.png");
+                img.sprite = horizontalSticks[8];
                 break;
             default:
-                img.sprite = LoadSpriteFromPath("Assets/Art/MathSticks/empty.png");
+                img.sprite = emptyStick;
                 break;
         }
     }

@@ -137,4 +137,14 @@ namespace fractionProcessor
             return (3*number1,3*number2);
         }
     }
+    public class BigFractionGenerator : IFractionGenerator
+    {
+        public (int, int) GenerateFraction()
+        {
+            Random random = new();
+            int number1 = random.Next(2, 999);
+            int number2 = random.Next(2, 999);
+            return (number1, number2);
+        }
+    }
 }

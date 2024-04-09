@@ -11,6 +11,9 @@ public class Pig : MonoBehaviour
     private BoxCollider2D boxCollider2D;
     private Rigidbody2D rb2d;
     private Vector2 movement = new Vector2();
+    Damageable damageable;
+    Animator animator;
+    private AnimatorStateInfo state; //动画状态机状态
 
     public int damage = 10;
     // Start is called before the first frame update
@@ -19,12 +22,24 @@ public class Pig : MonoBehaviour
         this.currentTarget = wayPoint1;
         this.boxCollider2D = GetComponent<BoxCollider2D>();
         this.rb2d = GetComponent<Rigidbody2D>();
+        this.damageable = GetComponent<Damageable>();
+        this.animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Move();
+        if(damageable.isAlive && !damageable.isUnderAttackCooldown)
+        {
+            Move();
+        }
+        if (!damageable.isAlive)
+        {
+            rb2d.velocity = new Vector2(0, 0);
+            animator.SetBool("isDie", true);
+            Die();
+        }
+        
     }
     /*
      * 判断转身
@@ -72,12 +87,30 @@ public class Pig : MonoBehaviour
         rb2d.velocity = new Vector2(movement.x * speed, rb2d.velocity.y);
         TurnCheck();
     }
-    private void OnCollisionEnter2D(Collision2D collision)
+    
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player")
         {
-            //攻击玩家的代码
-            Debug.Log("attack player");
+            Damageable d = collision.GetComponent<Damageable>();//获取damageable组件
+            if (collision.transform.position.x - this.transform.position.x < 0)
+            {
+                d.Hit(damage, new Vector2(-5, 2));
+            }
+            else
+            {
+                d.Hit(damage, new Vector2(5, 2));
+            }
+        }
+    }
+    private void Die()
+    {
+        //似了
+        state = animator.GetCurrentAnimatorStateInfo(0);
+        if (state.IsName("die") && state.normalizedTime >= 1.0f)
+        {
+            //动画播放完成
+            Destroy(gameObject);
         }
     }
 }

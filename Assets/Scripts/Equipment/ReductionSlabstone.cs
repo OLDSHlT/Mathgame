@@ -24,4 +24,12 @@ public class ReductionSlabstone : MonoBehaviour
     {
         
     }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            collision.GetComponent<SlabStoneContainer>().AddSlabStone(this);
+            gameObject.SetActive(false);
+        }
+    }
 }
