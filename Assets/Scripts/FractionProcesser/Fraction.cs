@@ -139,12 +139,25 @@ namespace fractionProcessor
     }
     public class BigFractionGenerator : IFractionGenerator
     {
+        static Random random = new Random();
         public (int, int) GenerateFraction()
         {
-            Random random = new();
-            int number1 = random.Next(2, 999);
-            int number2 = random.Next(2, 999);
-            return (number1, number2);
+            // 生成不是最简分数的分数
+            int numeratorMultipler = GenerateNumberInRange(1, 27);
+            int denominatorMultipler = GenerateNumberInRange(1, 27);
+            while(numeratorMultipler == denominatorMultipler)
+            {
+                numeratorMultipler = GenerateNumberInRange(1, 27);
+                denominatorMultipler = GenerateNumberInRange(1, 27);
+            }
+            int gcd = GenerateNumberInRange(11, 37);
+            int numerator = gcd * numeratorMultipler;
+            int denominator = gcd * denominatorMultipler;
+            return (numerator, denominator);
+        }
+        static int GenerateNumberInRange(int min, int max)
+        {
+            return random.Next(min, max + 1);
         }
     }
 }
