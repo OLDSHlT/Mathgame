@@ -6,10 +6,11 @@ using UnityEngine.Events;
 
 public class Damageable : MonoBehaviour
 {
-    public UnityEvent<int, Vector2> damageableHitEvent;//受击事件，可用于调用（特定的）受击函数
+    public UnityEvent<Vector2> damageableHitEvent;//受击事件，可用于调用（特定的）受击函数
     public UnityEvent<int, int> healthchanged;
     public UnityEvent deathEvent;
     public GameObject Spoil;//战利品
+    public bool DamageTest=false;
     private Color originalColor;
     private Color hitColor = Color.red;
     //引用
@@ -80,13 +81,17 @@ public class Damageable : MonoBehaviour
     }
     private void Update()
     {   //主要用于检测是否处于无敌状态
-        if (RollTriggerInvincible == true)
-            isUnderAttackCooldown = true;
-        else if (!RollTriggerInvincible && Timer == 0)
+        //if (RollTriggerInvincible == true)
+        //    isUnderAttackCooldown = true;
+        //else if (!RollTriggerInvincible && Timer == 0)
+        //{
+        //    isUnderAttackCooldown = false;
+        //}
+        if ( Timer <= 0)
         {
             isUnderAttackCooldown = false;
         }
-        if (isUnderAttackCooldown && !RollTriggerInvincible)
+        if (isUnderAttackCooldown  )
         {
             Timer += Time.deltaTime;
             if (InvincibieTime <= Timer)
@@ -95,7 +100,10 @@ public class Damageable : MonoBehaviour
                 Timer = 0;
             }
         }
-        //Console.WriteLine();
+        if(DamageTest)
+        {
+            bool a = Hit(10, Vector2.zero);
+        }//无敌帧测试
     }
     public bool Hit(int damage, Vector2 knockback)//受击判定
     {
@@ -110,23 +118,23 @@ public class Damageable : MonoBehaviour
         //}
         if (isAlive && !isUnderAttackCooldown)
         {
-            if (!isInvincible)//无敌的时候不掉血，但是可以被击退
+            if (!isUnderAttackCooldown)//无敌的时候不掉血，但是可以被击退
             {
                 Health -= damage;
             }
             
-            damageableHitEvent?.Invoke(damage, knockback);
+            damageableHitEvent?.Invoke( knockback);
             //animator.SetTrigger(AnimationString.HitTrigger);//后期用于设置动画器的“受击”Trigger
-
-            CharactorUIEvents.characterDamaged.Invoke(gameObject, damage);
             isUnderAttackCooldown = true;
             Timer += 0.000001f;
+            //CharactorUIEvents.characterDamaged.Invoke(gameObject, damage);
+            
             return true;
         }
         else
             return false;
     }
-    public void OnHit(int damage, Vector2 knockback)//受击（可能）造成的硬直和击退
+    public void OnHit(Vector2 knockback)//受击（可能）造成的硬直和击退
     {
         LockVelocity = true;
         if (canKnock)//若无霸体
