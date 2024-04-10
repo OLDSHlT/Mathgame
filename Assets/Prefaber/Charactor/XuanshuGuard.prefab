@@ -400,6 +400,7 @@ GameObject:
   - component: {fileID: 5404342850905614631}
   - component: {fileID: 6343396535630717599}
   - component: {fileID: 5939536160103685998}
+  - component: {fileID: 8707063584513031490}
   m_Layer: 8
   m_Name: XuanshuGuard
   m_TagString: Enemy
@@ -660,6 +661,21 @@ MonoBehaviour:
   RollTriggerInvincible: 0
   InvincibieTime: 0.5
   Timer: 0
+--- !u!114 &8707063584513031490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6059463705207761539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 641cf0c259e97a941b2ac05d41e475a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  verticalSticks: []
+  horizontalSticks: []
+  emptyStick: {fileID: 0}
 --- !u!1 &8830615371132405014
 GameObject:
   m_ObjectHideFlags: 0
