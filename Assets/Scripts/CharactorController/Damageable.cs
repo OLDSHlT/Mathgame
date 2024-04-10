@@ -118,7 +118,7 @@ public class Damageable : MonoBehaviour
             damageableHitEvent?.Invoke(damage, knockback);
             //animator.SetTrigger(AnimationString.HitTrigger);//后期用于设置动画器的“受击”Trigger
 
-                            //CharactorEvents.characterDamaged.Invoke(gameObject, damage);
+            CharactorUIEvents.characterDamaged.Invoke(gameObject, damage);
             isUnderAttackCooldown = true;
             Timer += 0.000001f;
             return true;
