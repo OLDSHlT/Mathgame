@@ -100,7 +100,7 @@ public class Boss : MonoBehaviour
                     shortRangeAttackArea.SetActive(false);
                     //脚踏
                     this.isTreading = true;
-                    
+                    AttackLongRange();
                 }
 
             }
@@ -159,7 +159,25 @@ public class Boss : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
+    private void AttackLongRange()
+    {
+        if (isAttackKeyFrame)
+        {
+            //造成伤害
+            if (this.isPlayerInTrigger)
+            {
+                Damageable d = warningZone.target.GetComponent<Damageable>();//获取damageable组件
+                if (warningZone.target.transform.position.x - this.transform.position.x < 0)
+                {
+                    d.Hit(20, new Vector2(-5, 2));
+                }
+                else
+                {
+                    d.Hit(20, new Vector2(5, 2));
+                }
+            }
+        }
+    }
     private void AttackShortRange()
     {
         if (!isAttackCDing)

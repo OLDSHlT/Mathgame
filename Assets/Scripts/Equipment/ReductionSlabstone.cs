@@ -5,6 +5,8 @@ using UnityEngine;
 public class ReductionSlabstone : MonoBehaviour
 {
     public int reductionNumber;
+
+    
     public ReductionSlabstone(int number)
     {
         this.reductionNumber = number;
