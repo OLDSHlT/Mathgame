@@ -95,13 +95,13 @@ public class PhaseReductionController : MonoBehaviour
         if(ExBox>0)
             Num_Subtrahend = ExBox;
     }
-    public Transform ProducePos;
+    
     public GameObject Slabstone;
     public GameObject GXJSMachine;
     public void Produce()
     {   if (Num_Result > 0)
         {
-            GameObject flagstone=Instantiate(Slabstone, ProducePos.transform.position + new Vector3(5, 0, 0), transform.rotation);
+            GameObject flagstone=Instantiate(Slabstone, GXJSMachine.transform.position + new Vector3(5, 0, 0), transform.rotation);
             ReductionSlabstone RS=flagstone.GetComponent<ReductionSlabstone>();
             RS.reductionNumber=Num_Result;
             NewBehaviourScript NBS=GXJSMachine.GetComponent<NewBehaviourScript>();
