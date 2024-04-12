@@ -18,7 +18,8 @@ public class NewBehaviourScript : MonoBehaviour
     {
         if (isActive)
         {
-            UpdateInput();
+            if (Input.GetKeyDown(KeyCode.Escape))
+                UpdateInput();
         }
     }
     public void OnActive()//仪器被激活的回调函数
@@ -33,9 +34,9 @@ public class NewBehaviourScript : MonoBehaviour
         this.isActive = false;
         UI.gameObject.SetActive(false);
     }
-    private void UpdateInput()
+    public void UpdateInput()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        
         {
             //退出仪器
             Deactivation();
