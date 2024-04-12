@@ -1424,9 +1424,8 @@ MonoBehaviour:
   TMP_Minuend: {fileID: 3885448980834688883}
   TMP_Subtrahend: {fileID: 1980787434543327767}
   TMP_Result: {fileID: 2189228860960182507}
-  ProducePos: {fileID: 0}
   Slabstone: {fileID: 6368238982168199735, guid: 2a612660b35a6c2438ca3f10ae307ca2, type: 3}
-  GXJSMachine: {fileID: 0}
+  GXJSMachine: {fileID: 5655804400911775213, guid: 1ccb17feab1f16048a3de75aeda12236, type: 3}
 --- !u!1 &7720611162484175858
 GameObject:
   m_ObjectHideFlags: 0
