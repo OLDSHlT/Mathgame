@@ -24,8 +24,6 @@ public class BossFraction : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        fractionProcessor = new FractionProcessor(new BigFractionGenerator());
-
         shield = transform.Find("Shield");
         stickLoader = GetComponent<MathStickLoader>();
         damageable = GetComponent<Damageable>();
@@ -45,8 +43,11 @@ public class BossFraction : MonoBehaviour
         denTen = img5.GetComponent<Image>();
         denUnit = img6.GetComponent<Image>();
 
-        SetCanvas();
+        fractionProcessor = new FractionProcessor(new BigFractionGenerator());
+
+
     }
+    
 
     // Update is called once per frame
     void Update()
@@ -163,5 +164,17 @@ public class BossFraction : MonoBehaviour
                 img.sprite = stickLoader.emptyStick;
                 break;
         }
+    }
+    public void OnHit(int damage, Vector2 knockback)//计算玄数
+    {
+        if (playerFraction != null)
+        {
+            //Debug.Log("fraction counter");
+            if (playerFraction.selectedSlabStone != null)
+            {
+                fractionProcessor.Reduction(playerFraction.selectedSlabStone.reductionNumber);
+            }
+        }
+        SetCanvas();//更新画布
     }
 }

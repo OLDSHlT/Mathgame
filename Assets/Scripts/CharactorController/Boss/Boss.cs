@@ -23,6 +23,8 @@ public class Boss : MonoBehaviour
     private Damageable damageable;
     public GameObject shortRangeAttackArea;
     public GameObject longRangeAttackArea;
+    public ParticleSystem particleLeft;
+    public ParticleSystem particleRight;
     public enum AttackModes
     {
         LongRange = 0,
@@ -91,11 +93,12 @@ public class Boss : MonoBehaviour
                     else
                     {
                         AttackShortRange();
-                        movement = new Vector2();
+                        movement = new Vector2(0,0);
                     }
                 }
                 else if(attackMode == AttackModes.LongRange)
                 {
+                    movement = new Vector2(0,0);
                     longRangeAttackArea.SetActive(true);
                     shortRangeAttackArea.SetActive(false);
                     //脚踏
@@ -167,6 +170,7 @@ public class Boss : MonoBehaviour
             if (this.isPlayerInTrigger)
             {
                 Damageable d = warningZone.target.GetComponent<Damageable>();//获取damageable组件
+                Debug.Log("long range hit");
                 if (warningZone.target.transform.position.x - this.transform.position.x < 0)
                 {
                     d.Hit(20, new Vector2(-5, 2));
@@ -206,6 +210,7 @@ public class Boss : MonoBehaviour
                     if (this.isPlayerInTrigger)
                     {
                         Damageable d = warningZone.target.GetComponent<Damageable>();//获取damageable组件
+                        Debug.Log("short range hit");
                         if (warningZone.target.transform.position.x - this.transform.position.x < 0)
                         {
                             d.Hit(20, new Vector2(-5, 2));
@@ -240,6 +245,17 @@ public class Boss : MonoBehaviour
         }
         StartCoroutine(AttackModeCD());
     }
+    public void EmitPartle()
+    {
+        if (particleLeft != null)
+        {
+            particleLeft.Play();
+        }
+        if (particleRight != null)
+        {
+            particleRight.Play();
+        }
+    }
     //计算攻击CD的协程
     private IEnumerator AttackCDControl()
     {
@@ -255,5 +271,5 @@ public class Boss : MonoBehaviour
         yield return new WaitForSeconds(5);
         DecideAttackMode();
     }
-    
+   
 }
