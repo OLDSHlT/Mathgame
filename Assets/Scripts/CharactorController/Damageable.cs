@@ -118,7 +118,7 @@ public class Damageable : MonoBehaviour
         //}
         if (isAlive && !isUnderAttackCooldown)
         {
-            if (!isUnderAttackCooldown)//无敌的时候不掉血，但是可以被击退
+            if (!isUnderAttackCooldown && !isInvincible)//无敌的时候不掉血，但是可以被击退
             {
                 Health -= damage;
             }
