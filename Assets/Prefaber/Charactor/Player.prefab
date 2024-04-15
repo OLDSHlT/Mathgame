@@ -347,6 +347,7 @@ MonoBehaviour:
   sprintCD: 1.5
   sprintDuration: 0.1
   jumpForce: 10
+  isInputLock: 0
   isRunning: 0
   isFalling: 0
 --- !u!95 &5978692139455869660
@@ -715,7 +716,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6303759833776669599}
   - component: {fileID: 2305206729221277617}
-  - component: {fileID: 668187598205805848}
+  - component: {fileID: 2214889142499063775}
   m_Layer: 6
   m_Name: Slider
   m_TagString: Untagged
@@ -796,7 +797,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &668187598205805848
+--- !u!114 &2214889142499063775
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -805,7 +806,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8016194870313657805}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8f435cdc3119c74689fa16ababc10b9, type: 3}
+  m_Script: {fileID: 11500000, guid: b2abc71c60d3e4a42a0d0ad26cd8bfac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 982858920389697416}
