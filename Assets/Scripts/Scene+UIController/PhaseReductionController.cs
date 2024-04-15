@@ -34,39 +34,21 @@ public class PhaseReductionController : MonoBehaviour
             //print("Sub");
             _Num_Subtrahend = value;
             TMP_Subtrahend.text = value.ToString();
-            Num_Result = Num_Minuend - value;
-            if (Num_Result >= 0)
-            {
-                TMP_Result.text = Num_Result.ToString();
-            }
-            else if (Num_Result < 0)
-            {
-                Num_Result = 0;
-                TMP_Result.text = " ";
-            }
+            
         }
     }
-    //int Num_Subtrahend;
 
-    //int _Num_Result;
-    //public int Num_Result { get { return _Num_Result; }
-    //    private set 
-    //    {
-            
-    //        if (Num_Result >= 0)
-    //        {
-    //            print("Res>0");
-    //            TMP_Result.text = Num_Result.ToString();
-    //        }
-    //        else if(Num_Result<0)
-    //        {
-    //            print("Res<0");
-    //            TMP_Result.text = " ";
-    //            _Num_Result = 0;
-    //        }
-    //    }
-    //}
-    int Num_Result;
+
+    int _Num_Result;
+    public int Num_Result
+    {
+        get { return _Num_Result; }
+        private set
+        {   _Num_Result = value;
+            TMP_Result.text = value.ToString();
+        }
+    }
+    //int Num_Result;
     void Awake()
     {
         _Num_Subtrahend= Convert.ToInt32(TMP_Subtrahend.text);
@@ -82,7 +64,7 @@ public class PhaseReductionController : MonoBehaviour
     }
 
     // Update is called once per frame
-    public void Exchange1()//Subtrahend需要最后一部设置
+    public void Exchange1()//
     {
         int ExBox = Num_Minuend;
         Num_Minuend = Num_Subtrahend;
@@ -91,11 +73,23 @@ public class PhaseReductionController : MonoBehaviour
     public void Exchange2() 
     {
         int ExBox = Num_Result;
-        //Num_Result = Num_Subtrahend;
+        Num_Result = Num_Subtrahend;
         if(ExBox>0)
             Num_Subtrahend = ExBox;
     }
-    
+    public void Result()
+    {   if((Num_Minuend - Num_Subtrahend)>0)
+        {
+            Num_Result = Num_Minuend - Num_Subtrahend;
+             //TMP_Result.text = Num_Result.ToString();
+        }
+        //else if ((Num_Minuend - Num_Subtrahend) <= 0)
+        //{
+        //    Num_Result = 0;
+        //    TMP_Result.text = " ";
+        //}
+    }
+
     public GameObject Slabstone;
     public GameObject GXJSMachine;
     public void Produce()
