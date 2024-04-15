@@ -11,6 +11,7 @@ public class PlayerMovementController : MonoBehaviour
     public float sprintCD = 1.5f;
     public float sprintDuration = 0.1f;
     public float jumpForce = 10f;
+    public bool isInputLock = false;
     Vector2 movement = new Vector2();
 
     Transform viewPoint;
@@ -64,7 +65,7 @@ public class PlayerMovementController : MonoBehaviour
     {
         UpdateState();
         UpdateJumpState();
-        if (!damageable.isUnderAttackCooldown && !isWallJumping && damageable.isAlive)
+        if (!damageable.isUnderAttackCooldown && !isWallJumping && damageable.isAlive && !isInputLock)
         {
             MovePlayer();
         }
@@ -167,6 +168,16 @@ public class PlayerMovementController : MonoBehaviour
             this.jumpTime = 0f;
             isJumpAllow = true;
         }
+    }
+    public void MoveRight()
+    {
+        movement = new Vector2(1, 0);
+        rb2d.velocity = new Vector2(movement.x * movementSpeed, movement.y); 
+    }
+    public void Stop()
+    {
+        movement = new Vector2();
+        rb2d.velocity = new Vector2();
     }
     private void TurnCheck()
     {

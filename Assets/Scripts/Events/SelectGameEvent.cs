@@ -26,7 +26,19 @@ public class SelectGameEvent : MonoBehaviour
     {
         if(sceneNumber == -1)
         {
-            SceneManager.LoadScene("TestScene");
+            SceneManager.LoadScene("Menu");
+        }
+        else if(sceneNumber == 0)
+        {
+            SceneManager.LoadScene("Level1");
+        }
+        else if(sceneNumber == 1)
+        {
+            SceneManager.LoadScene("Level2");
+        }
+        else if(sceneNumber == 2)
+        {
+            SceneManager.LoadScene("Level3");
         }
     }
 

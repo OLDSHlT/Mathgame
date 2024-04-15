@@ -25,6 +25,7 @@ public class Level1 : MonoBehaviour
         if(state == 0)
         {
             Stage0();
+            player.isInputLock = true;
         }
         else if(state == 1)
         {
@@ -33,6 +34,7 @@ public class Level1 : MonoBehaviour
         else if(state == 2)
         {
             Stage2();
+            player.isInputLock = false;
         }
     }
     void Stage0()
@@ -49,6 +51,7 @@ public class Level1 : MonoBehaviour
     }
     void Stage1()
     {
+        player.Stop();
         //等对话结束后前往下一个目标点
         if (flowchart.GetBooleanVariable("start_end"))
         {
@@ -75,6 +78,8 @@ public class Level1 : MonoBehaviour
         {
             thief.SetWayPoint(thiefWayPoint1);
             thief.isMoving = true;
+            player.MoveRight();
         }
     }
+
 }

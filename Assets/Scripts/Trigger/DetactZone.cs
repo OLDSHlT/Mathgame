@@ -56,7 +56,7 @@ public class DetactionZone : MonoBehaviour
         if (InReact)//用于触发互动事件
         {
             //if(Input.GetKeyDown(KeyCode.UpArrow))
-            if (Input.GetKey(KeyCode.Q))
+            if (Input.GetKey(KeyCode.E))
             {
                 ReactEvent?.Invoke();
                 InReact=false;
