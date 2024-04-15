@@ -210,7 +210,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: text
+  m_text: "\u6E38\u620F\u76EE\u6807\uFF1A \u4F60\u7684\u76EE\u6807\u662F\u586B\u5145\u4E00\u4E2A3x3\u7684\u65B9\u683C\uFF0C\u4F7F\u5F97\u6BCF\u4E00\u884C\u3001\u6BCF\u4E00\u5217\u4EE5\u53CA\u4E24\u6761\u5BF9\u89D2\u7EBF\u4E0A\u7684\u6570\u5B57\u4E4B\u548C\u90FD\u76F8\u7B49\u3002\r\n\r\n\u6E38\u620F\u89C4\u5219\uFF1A\r\n\r\n\u6E38\u620F\u677F\u7531\u4E00\u4E2A3x3\u7684\u65B9\u683C\u7EC4\u6210\uFF0C\u6BCF\u4E2A\u65B9\u683C\u5185\u6709\u4E00\u4E2A\u6570\u5B57\u7684\u7A7A\u4F4D\u3002\r\n\u4F60\u9700\u8981\u5C06\u6570\u5B571\u52309\u586B\u5165\u8FD9\u4E9B\u7A7A\u4F4D\u4E2D\uFF0C\u6BCF\u4E2A\u6570\u5B57\u53EA\u80FD\u4F7F\u7528\u4E00\u6B21\u3002\r\n\u4FDD\u8BC1\u6BCF\u4E00\u884C\u3001\u6BCF\u4E00\u5217\u4EE5\u53CA\u4E24\u6761\u5BF9\u89D2\u7EBF\u4E0A\u7684\u6570\u5B57\u4E4B\u548C\u90FD\u7B49\u4E8E\u540C\u4E00\u4E2A\u503C\u3002\r\n\u5982\u4F55\u73A9\uFF1A\r\n\r\n\u70B9\u51FB\u7A7A\u767D\u65B9\u683C\uFF0C\u7136\u540E\u9009\u62E9\u8981\u586B\u5165\u7684\u6570\u5B57\u3002\r\n\u786E\u4FDD\u586B\u5165\u7684\u6570\u5B57\u7B26\u5408\u4E0A\u8FF0\u89C4\u5219\u3002\r\n\u7EE7\u7EED\u586B\u5145\u5176\u4F59\u7684\u7A7A\u4F4D\uFF0C\u76F4\u5230\u6240\u6709\u65B9\u683C\u90FD\u586B\u6EE1\u3002\r\n\u63D0\u793A\uFF1A\r\n\r\n\u4E00\u4E9B\u6570\u5B57\u7EC4\u5408\u53EF\u80FD\u6709\u52A9\u4E8E\u4F60\u5F00\u59CB\u586B\u5145\u3002\u8BD5\u7740\u627E\u51FA\u4E00\u4E9B\u6570\u5B57\u4E4B\u548C\u7B49\u4E8E\u5E7B\u65B9\u76EE\u6807\u503C\u7684\u7EC4\u5408\u3002\r\n\u8BB0\u4F4F\uFF0C\u6BCF\u4E00\u884C\u3001\u6BCF\u4E00\u5217\u4EE5\u53CA\u4E24\u6761\u5BF9\u89D2\u7EBF\u4E0A\u7684\u6570\u5B57\u4E4B\u548C\u90FD\u5FC5\u987B\u76F8\u7B49\uFF01"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3c79ded689516dd45b5ceef3e29c2b7a, type: 2}
   m_sharedMaterial: {fileID: 6941109145708617898, guid: 3c79ded689516dd45b5ceef3e29c2b7a, type: 2}
@@ -273,7 +273,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: -691.7656, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -344,7 +344,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Title
+  m_text: "\u5E7B\u65B9\u2014\u2014\u6559\u7A0B"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3c79ded689516dd45b5ceef3e29c2b7a, type: 2}
   m_sharedMaterial: {fileID: 6941109145708617898, guid: 3c79ded689516dd45b5ceef3e29c2b7a, type: 2}
@@ -448,7 +448,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.000015258789}
+  m_AnchoredPosition: {x: 0, y: -84.209656}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &4287871206341196104
@@ -655,8 +655,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 769989615
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: a5627f339dd2e5b4e867bce066374b07, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -911,7 +911,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6756778960318800111}
   m_HandleRect: {fileID: 7135761647935598032}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:

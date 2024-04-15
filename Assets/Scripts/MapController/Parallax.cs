@@ -20,7 +20,7 @@ public class Parallax : MonoBehaviour
     //public bool isX = true;
     void Awake()
     {
-        PlayerPosStart = GameObject.Find("Player").GetComponent<Transform>();
+        PlayerPosStart = GameObject.Find("Main Camera").GetComponent<Transform>();
         TotalDistanceX=TargetPosX.transform.position.x-PlayerPosStart.transform.position.x;
         TotalDistanceY = TargetPosY.transform.position.y - PlayerPosStart.transform.position.y;
         SpritePosStart = transform.position;
@@ -37,7 +37,7 @@ public class Parallax : MonoBehaviour
     float ToTargetDistanceY;
     void Update()
     {
-        Transform PlayerPos = GameObject.Find("Player").GetComponent<Transform>();
+        Transform PlayerPos = GameObject.Find("Main Camera").GetComponent<Transform>();
         ToTargetDistanceX = TargetPosX.transform.position.x - PlayerPos.transform.position.x;//玩家到目标的x距离
         ToTargetDistanceY = TargetPosY.transform.position.y - PlayerPos.transform.position.y;//玩家到目标的y距离
         float ParallaxDistanceX = (1 - ToTargetDistanceX / TotalDistanceX) * Wide;//视差x距离
