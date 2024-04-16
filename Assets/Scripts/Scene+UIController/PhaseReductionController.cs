@@ -11,7 +11,7 @@ public class PhaseReductionController : MonoBehaviour
     public TMP_Text TMP_Minuend;
     public TMP_Text TMP_Subtrahend;
     public TMP_Text TMP_Result;
-    
+    public BossFraction Boss;
 
     int _Num_Minuend;
     public int Num_Minuend
@@ -101,6 +101,11 @@ public class PhaseReductionController : MonoBehaviour
             NewBehaviourScript NBS=GXJSMachine.GetComponent<NewBehaviourScript>();
             NBS.UpdateInput();
         }
+    }
+    public void OnActive()
+    {
+        TMP_Minuend.text = Boss.denominator.ToString();
+        TMP_Subtrahend.text = Boss.numerator.ToString();
     }
 
 }

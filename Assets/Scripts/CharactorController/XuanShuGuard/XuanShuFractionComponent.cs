@@ -68,7 +68,7 @@ public class XuanShuFractionComponent : MonoBehaviour
         {
             damageable.isInvincible = true;
         }
-        
+        SetCanvas();
     }
     void SetCanvas()
     {
@@ -165,8 +165,7 @@ public class XuanShuFractionComponent : MonoBehaviour
                 break;
         }
     }
-
-    public void OnHit(int damage, Vector2 knockback)//计算玄数
+    public void OnHit(Vector2 v)//计算玄数
     {
         if(playerFraction != null)
         {

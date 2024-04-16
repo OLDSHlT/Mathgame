@@ -59,6 +59,12 @@ public class Boss : MonoBehaviour
             gameObject.transform.localScale = new Vector2(gameObject.transform.localScale.x * -1, gameObject.transform.localScale.y);
         }
     }
+    public void Stop()
+    {
+        movement = new Vector2();
+        rb2d.velocity = new Vector2();
+        UpdateStatus();
+    }
     private void Move()
     {
 
