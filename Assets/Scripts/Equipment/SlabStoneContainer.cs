@@ -33,7 +33,8 @@ public class SlabStoneContainer : MonoBehaviour
         {
             selectedSlabStone = slabstone;
             currentIndex = 0;
-            
+            slabstonePick?.Invoke();
+            SwitchSelectSlabStone();
         }
     }
     public void RemoveSlabStone(ReductionSlabstone slabstone)
