@@ -383,9 +383,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb675aefda7cb24c8a4e8e4fd1c36a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slabstones: []
   selectedSlabStone: {fileID: 0}
-  currentIndex: 0
   slabstonePick:
     m_PersistentCalls:
       m_Calls:
@@ -401,7 +399,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-  actualText: 
   SlabText: {fileID: 1358767437743080900}
 --- !u!1 &2138584652948206506
 GameObject:
@@ -715,7 +712,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u516B\u4E03"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: df2cec6fb1f3e2e41a7cbbfeb1d67cdd, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 3c79ded689516dd45b5ceef3e29c2b7a, type: 2}
   m_sharedMaterial: {fileID: 6941109145708617898, guid: df2cec6fb1f3e2e41a7cbbfeb1d67cdd, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -779,7 +776,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &6595635129183988310
@@ -793,7 +790,6 @@ GameObject:
   - component: {fileID: 9055055873345503403}
   - component: {fileID: 5204960890915665105}
   - component: {fileID: 4753835971322614701}
-  - component: {fileID: 1361255313727810127}
   m_Layer: 6
   m_Name: SlabStoneImage (1)
   m_TagString: Untagged
@@ -859,19 +855,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1361255313727810127
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6595635129183988310}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 790e238281c4a4e4fb44711ff0b62d3f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Slabstone: {fileID: 0}
 --- !u!1 &6955015603093930233
 GameObject:
   m_ObjectHideFlags: 0
