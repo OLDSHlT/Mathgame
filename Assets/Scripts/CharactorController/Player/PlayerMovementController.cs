@@ -178,6 +178,7 @@ public class PlayerMovementController : MonoBehaviour
     {
         movement = new Vector2();
         rb2d.velocity = new Vector2();
+        UpdateState();
     }
     private void TurnCheck()
     {
@@ -213,7 +214,7 @@ public class PlayerMovementController : MonoBehaviour
         if (rb2d.velocity.y <= 0 && !touchingDetactor.isGrounded)
         {
             isFalling = true;
-            this.viewPoint.transform.localPosition = new Vector2(0, -2);//改变摄像机的位置，让画面能够看到地面
+            this.viewPoint.transform.localPosition = new Vector2(0, -5);//改变摄像机的位置，让画面能够看到地面
         }
         else
         {
