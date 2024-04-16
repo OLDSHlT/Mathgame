@@ -1,24 +1,30 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.Events;
 
 //容纳所有约分石板的容器
 
 public class SlabStoneContainer : MonoBehaviour
 {
-    public List<ReductionSlabstone> slabstones;
+    private List<ReductionSlabstone> slabstones = new List<ReductionSlabstone>();
     public ReductionSlabstone selectedSlabStone = null;
-    private int currentIndex;
+    int currentIndex;//
+    public UnityEvent slabstonePick;
     // Start is called before the first frame update
     void Start()
     {
-        slabstones = new List<ReductionSlabstone>();
+       
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        //if (Input.GetKeyDown(KeyCode.R) && selectedSlabStone != null)
+        //    SwitchIndex();
+
     }
     public void AddSlabStone(ReductionSlabstone slabstone)
     {
@@ -27,6 +33,7 @@ public class SlabStoneContainer : MonoBehaviour
         {
             selectedSlabStone = slabstone;
             currentIndex = 0;
+            
         }
     }
     public void RemoveSlabStone(ReductionSlabstone slabstone)
@@ -55,8 +62,10 @@ public class SlabStoneContainer : MonoBehaviour
             }
         }
     }
+    //public GameObject SlabStoneUI;
     public void SwitchSelectSlabStone()
-    {
+    {   if (slabstones.Count == 1)//启动时
+            slabstonePick?.Invoke();
         if (slabstones.Count == 0)
         {
             selectedSlabStone = null; // 如果列表为空，则选中的 SlabStone 为 null
@@ -67,5 +76,45 @@ public class SlabStoneContainer : MonoBehaviour
         // 增加 currentIndex，如果达到列表的末尾，则回到列表的开头
         currentIndex = (currentIndex + 1) % slabstones.Count;
         selectedSlabStone = slabstones[currentIndex];
+        int Num = selectedSlabStone.GetReductionNumber();
+        ChosenNum = Num.ToString();
+        TextChange();
+    }
+
+    string ChosenNum;
+    public void SwitchIndex()
+    {
+
+        {
+            if (currentIndex >= slabstones.Count-1 || slabstones.Count == 1)
+            {
+                currentIndex = 0;
+            }
+            else
+            {
+                currentIndex++;
+            }
+        }
+
+        int Num = slabstones[currentIndex].GetReductionNumber();
+        ChosenNum = Num.ToString();
+        TextChange();
+    }
+    string[] TextNum = new string[] { "零", "一", "二", "三", "四", "五", "六", "七", "八", "九" };
+    string actualText;
+    public TMP_Text SlabText;
+    private void TextChange()
+    {
+        actualText = "";
+        char[] Nums = new char[ChosenNum.Length];
+        for (int i = 0; i < Nums.Length; i++)
+        {
+            Nums[i] = ChosenNum[i];
+            char actualChar = Convert.ToChar(TextNum[Convert.ToInt32(Nums[i])-48]);
+            actualText = actualText.PadRight(i+1, actualChar);
+            //print(actualChar);
+        }
+        SlabText.text = actualText;
+        
     }
 }
