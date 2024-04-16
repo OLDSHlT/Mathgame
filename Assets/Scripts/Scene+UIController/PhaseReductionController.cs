@@ -45,18 +45,20 @@ public class PhaseReductionController : MonoBehaviour
         get { return _Num_Result; }
         private set
         {   _Num_Result = value;
-            TMP_Result.text = value.ToString();
+            
         }
     }
     //int Num_Result;
     void Awake()
     {
         _Num_Subtrahend= Convert.ToInt32(TMP_Subtrahend.text);
-       // _Num_Result = Num_Minuend - Num_Subtrahend;
+        // _Num_Result = Num_Minuend - Num_Subtrahend;
+        OnActive();
     }
     // Start is called before the first frame update
     void Start()
     {
+        
         Num_Minuend = Convert.ToInt32(TMP_Minuend.text);
         Num_Subtrahend = Convert.ToInt32(TMP_Subtrahend.text);
         Num_Result = Num_Minuend - Num_Subtrahend;
@@ -74,14 +76,16 @@ public class PhaseReductionController : MonoBehaviour
     {
         int ExBox = Num_Result;
         Num_Result = Num_Subtrahend;
-        if(ExBox>0)
+        TMP_Result.text = Num_Result.ToString();
+        if (ExBox>0)
             Num_Subtrahend = ExBox;
     }
     public void Result()
     {   if((Num_Minuend - Num_Subtrahend)>0)
         {
             Num_Result = Num_Minuend - Num_Subtrahend;
-             //TMP_Result.text = Num_Result.ToString();
+            TMP_Result.text = Num_Result.ToString();
+            //TMP_Result.text = Num_Result.ToString();
         }
         //else if ((Num_Minuend - Num_Subtrahend) <= 0)
         //{
@@ -104,8 +108,9 @@ public class PhaseReductionController : MonoBehaviour
     }
     public void OnActive()
     {
-        TMP_Minuend.text = Boss.denominator.ToString();
-        TMP_Subtrahend.text = Boss.numerator.ToString();
+        Num_Subtrahend = Math.Min(Boss.denominator,Boss.numerator);
+        Num_Minuend = Math.Max(Boss.numerator, Boss.denominator);
+        //print("Start");
     }
 
 }

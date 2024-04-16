@@ -172,6 +172,7 @@ public class BossFraction : MonoBehaviour
             //Debug.Log("fraction counter");
             if (playerFraction.selectedSlabStone != null)
             {
+                Debug.Log("reduction");
                 fractionProcessor.Reduction(playerFraction.selectedSlabStone.reductionNumber);
             }
         }
