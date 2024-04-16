@@ -17,8 +17,8 @@ TagManager:
   - Enemy
   - AttackDetact
   - DropItem
-  - 
-  - 
+  - UnJumpableGround
+  - CameraCollision
   - 
   - 
   - 
@@ -47,6 +47,9 @@ TagManager:
     locked: 0
   - name: Ground
     uniqueID: 3252674563
+    locked: 0
+  - name: TutorialText
+    uniqueID: 2660717335
     locked: 0
   - name: Charactor
     uniqueID: 769989615
