@@ -10,29 +10,29 @@ public class MathStickLoader : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        emptyStick = LoadSpriteFromPath("Assets/Art/MathSticks/empty.png");
+        emptyStick = Resources.Load<Sprite>("empty");
         verticalSticks = new List<Sprite>();
         horizontalSticks = new List<Sprite>();
 
-        verticalSticks.Add(LoadSpriteFromPath("Assets/Art/MathSticks/1-vertical.png"));
-        verticalSticks.Add(LoadSpriteFromPath("Assets/Art/MathSticks/2-vertical.png"));
-        verticalSticks.Add(LoadSpriteFromPath("Assets/Art/MathSticks/3-vertical.png"));
-        verticalSticks.Add(LoadSpriteFromPath("Assets/Art/MathSticks/4-vertical.png"));
-        verticalSticks.Add(LoadSpriteFromPath("Assets/Art/MathSticks/5-vertical.png"));
-        verticalSticks.Add(LoadSpriteFromPath("Assets/Art/MathSticks/6-vertical.png"));
-        verticalSticks.Add(LoadSpriteFromPath("Assets/Art/MathSticks/7-vertical.png"));
-        verticalSticks.Add(LoadSpriteFromPath("Assets/Art/MathSticks/8-vertical.png"));
-        verticalSticks.Add(LoadSpriteFromPath("Assets/Art/MathSticks/9-vertical.png"));
+        verticalSticks.Add(Resources.Load<Sprite>("1-vertical"));
+        verticalSticks.Add(Resources.Load<Sprite>("2-vertical"));
+        verticalSticks.Add(Resources.Load<Sprite>("3-vertical"));
+        verticalSticks.Add(Resources.Load<Sprite>("4-vertical"));
+        verticalSticks.Add(Resources.Load<Sprite>("5-vertical"));
+        verticalSticks.Add(Resources.Load<Sprite>("6-vertical"));
+        verticalSticks.Add(Resources.Load<Sprite>("7-vertical"));
+        verticalSticks.Add(Resources.Load<Sprite>("8-vertical"));
+        verticalSticks.Add(Resources.Load<Sprite>("9-vertical"));
 
-        horizontalSticks.Add(LoadSpriteFromPath("Assets/Art/MathSticks/1-horizontal.png"));
-        horizontalSticks.Add(LoadSpriteFromPath("Assets/Art/MathSticks/2-horizontal.png"));
-        horizontalSticks.Add(LoadSpriteFromPath("Assets/Art/MathSticks/3-horizontal.png"));
-        horizontalSticks.Add(LoadSpriteFromPath("Assets/Art/MathSticks/4-horizontal.png"));
-        horizontalSticks.Add(LoadSpriteFromPath("Assets/Art/MathSticks/5-horizontal.png"));
-        horizontalSticks.Add(LoadSpriteFromPath("Assets/Art/MathSticks/6-horizontal.png"));
-        horizontalSticks.Add(LoadSpriteFromPath("Assets/Art/MathSticks/7-horizontal.png"));
-        horizontalSticks.Add(LoadSpriteFromPath("Assets/Art/MathSticks/8-horizontal.png"));
-        horizontalSticks.Add(LoadSpriteFromPath("Assets/Art/MathSticks/9-horizontal.png"));
+        horizontalSticks.Add(Resources.Load<Sprite>("1-horizontal"));
+        horizontalSticks.Add(Resources.Load<Sprite>("2-horizontal"));
+        horizontalSticks.Add(Resources.Load<Sprite>("3-horizontal"));
+        horizontalSticks.Add(Resources.Load<Sprite>("4-horizontal"));
+        horizontalSticks.Add(Resources.Load<Sprite>("5-horizontal"));
+        horizontalSticks.Add(Resources.Load<Sprite>("6-horizontal"));
+        horizontalSticks.Add(Resources.Load<Sprite>("7-horizontal"));
+        horizontalSticks.Add(Resources.Load<Sprite>("8-horizontal"));
+        horizontalSticks.Add(Resources.Load<Sprite>("9-horizontal"));
     }
 
     // Update is called once per frame

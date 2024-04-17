@@ -9,6 +9,7 @@ public class MachinesTrigger : MonoBehaviour
     //可交互物体的触发器
     public bool isPlayerInTrigger = false;
     public UnityEvent activeEvent;
+    public UnityEvent enterEvent;
     void Start()
     {
         
@@ -30,6 +31,7 @@ public class MachinesTrigger : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             isPlayerInTrigger = true;
+            enterEvent?.Invoke();
         }
     }
     private void OnTriggerExit2D(Collider2D collision)

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 785552698824185850}
   - component: {fileID: 5882946761965074417}
   - component: {fileID: 3037500556447361923}
+  - component: {fileID: 83974677583026992}
   m_Layer: 0
   m_Name: Door
   m_TagString: Untagged
@@ -30,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 191.198, y: -1.25, z: -1.6328031}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 1}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -74,9 +75,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 769989615
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: eaccecde01bde944e99c63c6f997a121, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2f6ccb033daa77847815f7b91ce94216, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -119,18 +120,18 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.06320554, y: 0.036112905}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 3.91, y: 7.74}
+    oldSize: {x: 5.12, y: 5.12}
     newSize: {x: 3.91, y: 7.74}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.91, y: 7.74}
+  m_Size: {x: 2.2668839, y: 3.8398454}
   m_EdgeRadius: 0
 --- !u!114 &5882946761965074417
 MonoBehaviour:
@@ -147,6 +148,9 @@ MonoBehaviour:
   destination: {fileID: 0}
   targetObject: {fileID: 0}
   background: {fileID: 0}
+  mainCamera: {fileID: 0}
+  virtualCamera: {fileID: 0}
+  newBoundary: {fileID: 0}
 --- !u!114 &3037500556447361923
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -187,3 +191,24 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!95 &83974677583026992
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3246848852914636754}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 396995f8c1fff2a4597faab13efdd529, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
