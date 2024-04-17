@@ -2,13 +2,15 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class YangHui : MonoBehaviour
 {
     int Line;
     public YangHuiPart[] PartList;
-
-    void Start()
+    public int ReactCount=0;
+    //public TMP_Text[] TMP;
+    void Awake()
     {
         int add = 0,a=1;
         
@@ -20,15 +22,16 @@ public class YangHui : MonoBehaviour
         }
         //print(Line);
         System.Random random = new System.Random();
-        Vector2 iRandom2d =new Vector2 (random.Next(1,3), random.Next(1, 3));
+        Vector2 iRandom2d =new Vector2 (random.Next(1,3), random.Next(2, 4));
         for (int i = 0; i < PartList.Length; i++)
         {
             
             Vector2 Index2D = IndexChange(i)+iRandom2d;
-            PartList[i].Num = YanghuiRes(Convert.ToInt32(Index2D.x), Convert.ToInt32(Index2D.y));
-            
+            PartList[i].accurateNum = YanghuiRes(Convert.ToInt32(Index2D.x), Convert.ToInt32(Index2D.y));
+            if (PartList[i].CanReact)
+                ReactCount++;
         }
-        PartList[0].Num = YanghuiRes(Convert.ToInt32(iRandom2d.x), Convert.ToInt32(iRandom2d.y));
+        PartList[0].accurateNum = YanghuiRes(Convert.ToInt32(iRandom2d.x), Convert.ToInt32(iRandom2d.y));
 
 
     }
@@ -65,5 +68,14 @@ public class YangHui : MonoBehaviour
         }
         
         return index2D;
+    }
+    public UnityEvent AchieveEvent;
+    public void AchieveMatch()
+    {
+        ReactCount--;
+        if (ReactCount <= 0)
+        {
+            AchieveEvent?.Invoke();
+        }
     }
 }
