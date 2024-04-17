@@ -19,9 +19,11 @@ public class DeathEvent : MonoBehaviour
     public void ResetLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Time.timeScale = 1.0f;
     }
     public void BackToMenu()
     {
         SceneManager.LoadScene("Menu");
+        Time.timeScale = 1.0f;
     }
 }
