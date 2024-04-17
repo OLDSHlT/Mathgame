@@ -50756,7 +50756,7 @@ MonoBehaviour:
   PosX2: {fileID: 93865762}
   PosY1: {fileID: 345304324}
   PosY2: {fileID: 596014917}
-  usingYParallax: 1
+  usingYParallax: 0
   ParallaxY: 0.8
 --- !u!212 &1247567300
 SpriteRenderer:
