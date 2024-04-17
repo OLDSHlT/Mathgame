@@ -527,8 +527,8 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 6389573283865974994}
         m_TargetAssemblyTypeName: FlyEnemy, Assembly-CSharp
-        m_MethodName: Setgravity
-        m_Mode: 3
+        m_MethodName: Set1fgravity
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

@@ -56295,21 +56295,32 @@ PolygonCollider2D:
       - {x: 81.97378, y: -7.4200063}
       - {x: 89.243515, y: -6.9074235}
       - {x: 89.24738, y: -9.366786}
-      - {x: 123.37467, y: -9.40018}
-      - {x: 123.35892, y: -6.9298515}
-      - {x: 128.4816, y: -6.8305383}
-      - {x: 162.18149, y: -7.947245}
-      - {x: 213.82884, y: -7.8520617}
-      - {x: 213.73293, y: -0.12037945}
-      - {x: 235.49068, y: 0.078789234}
-      - {x: 235.6576, y: 8.6742115}
-      - {x: 247.49971, y: 8.991062}
+      - {x: 123.24852, y: -9.778644}
+      - {x: 126.26047, y: -12.859123}
+      - {x: 132.89702, y: -12.5075}
+      - {x: 162.30763, y: -12.867279}
+      - {x: 212.30574, y: -12.692609}
+      - {x: 217.8658, y: -12.645941}
+      - {x: 224.35648, y: -5.6736007}
+      - {x: 238.39096, y: -2.2941809}
+      - {x: 240.40353, y: 3.7964401}
+      - {x: 245.91772, y: 1.8721504}
       - {x: 247.70232, y: -6.5518923}
       - {x: 314.85913, y: -6.3357325}
       - {x: 314.64813, y: 6.881903}
       - {x: 345.52737, y: 6.9046874}
       - {x: 345.7501, y: 16.435228}
-      - {x: 299.47586, y: 15.534725}
+      - {x: 301.53198, y: 15.898476}
+      - {x: 299.5966, y: 16.138336}
+      - {x: 290.18042, y: 16.10174}
+      - {x: 266.52637, y: 16.009808}
+      - {x: 227.77342, y: 16.12138}
+      - {x: 227.0118, y: 15.867977}
+      - {x: 192.787, y: 15.923277}
+      - {x: 157.96976, y: 15.672146}
+      - {x: 149.19781, y: 15.803289}
+      - {x: 142.65466, y: 15.876371}
+      - {x: 138.05598, y: 16.574959}
       - {x: 136.53558, y: 14.688852}
       - {x: 123.04765, y: 15.684134}
       - {x: 123.29015, y: 3.8492274}
@@ -59781,6 +59792,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: b77237461ec405048ae97eb2957529d3, type: 3}
+    - target: {fileID: 2321950640379695592, guid: 785f2d97763583043977b43124ea072e, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
     - target: {fileID: 4437760342107479866, guid: 785f2d97763583043977b43124ea072e, type: 3}
       propertyPath: StartMoving
       value: 0
@@ -59793,6 +59808,14 @@ PrefabInstance:
       propertyPath: m_Constraints
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 5679620723105644608, guid: 785f2d97763583043977b43124ea072e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5679620723105644608, guid: 785f2d97763583043977b43124ea072e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 6810176678056481530, guid: 785f2d97763583043977b43124ea072e, type: 3}
       propertyPath: m_Name
       value: "MovingPlane(\u672A\u4E0A\u4F20)"
@@ -59801,6 +59824,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8894079906822844151, guid: 785f2d97763583043977b43124ea072e, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
     - target: {fileID: 8974350131389568582, guid: 785f2d97763583043977b43124ea072e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 214.44
@@ -59840,6 +59867,14 @@ PrefabInstance:
     - target: {fileID: 8974350131389568582, guid: 785f2d97763583043977b43124ea072e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9176489505595459069, guid: 785f2d97763583043977b43124ea072e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9176489505595459069, guid: 785f2d97763583043977b43124ea072e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -6.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
