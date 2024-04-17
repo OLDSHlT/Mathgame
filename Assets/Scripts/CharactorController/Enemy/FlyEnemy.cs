@@ -6,14 +6,15 @@ public class FlyEnemy : MonoBehaviour
 {
     Rigidbody2D rd;
     public List<Transform> waypoint;//需要手动拖动各个点位
-
+    public bool StartMoving=true;
     void Awake()
     {
-        rd = GetComponent<Rigidbody2D>();
+        
     }
 
     void Start()
     {
+        rd = GetComponent<Rigidbody2D>();
         nextwaypoint = waypoint[nextwaypointIndex];
     }
 
@@ -23,8 +24,8 @@ public class FlyEnemy : MonoBehaviour
         
     }
     void FixedUpdate()
-    {
-        Flight();
+    {   if(StartMoving)
+            Flight();
     }
     private int nextwaypointIndex = 0;
     Transform nextwaypoint;
@@ -70,5 +71,13 @@ public class FlyEnemy : MonoBehaviour
             if (rd.velocity.x > 0)
                 transform.localScale = new Vector3(-1 * localScale.x, localScale.y, localScale.z);
         }
+    }
+    public void Set1fgravity()
+    {
+        rd.gravityScale = 1f;
+    }
+    public void SetOn()
+    {
+        StartMoving=true;
     }
 }
