@@ -447,7 +447,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 8af6ef4e673712a49a37ed458eb955c9, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1181,7 +1181,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
+<<<<<<< HEAD
+  m_Sprite: {fileID: 21300000, guid: 1b95594815c897d4aa2025ab1c475662, type: 3}
+=======
   m_Sprite: {fileID: 21300000, guid: 192ba853d357a154a94bf052622c2627, type: 3}
+>>>>>>> ddb75d90f002e9e649b2926f4ec696ccb21fd78d
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1190,7 +1194,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  m_PixelsPerUnitMultiplier: 50
 --- !u!222 &749374723
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1343,8 +1347,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -269, y: 0}
-  m_SizeDelta: {x: 160, y: 160}
+  m_AnchoredPosition: {x: -273.2, y: 0}
+  m_SizeDelta: {x: 228.13, y: 160}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &876628465
 MonoBehaviour:
@@ -1624,8 +1628,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 307, y: 0}
-  m_SizeDelta: {x: 160, y: 160}
+  m_AnchoredPosition: {x: 333, y: 0}
+  m_SizeDelta: {x: 243.42, y: 160}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1296039236
 MonoBehaviour:
@@ -2437,8 +2441,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -2742,7 +2746,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u7384\u6570\u5BFB\u5F55"
+  m_text: "\u7384\u6570\u5BFB\u8FF9"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 003306cf7c507dc44a3d822e7111597a, type: 2}
   m_sharedMaterial: {fileID: -8869072518777699508, guid: 003306cf7c507dc44a3d822e7111597a, type: 2}
@@ -2949,8 +2953,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 076cac5cdafc823418058e1e523401d7, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
